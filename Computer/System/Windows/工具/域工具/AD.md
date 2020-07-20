@@ -1,0 +1,11 @@
+# AD
+
+dcpromo
+打开域控制器安装
+
+repadmin /replsummary
+检查一下主域控和辅助域控制器之间的复制状态
+
+dsdiag /test:dns
+测试dns
+
