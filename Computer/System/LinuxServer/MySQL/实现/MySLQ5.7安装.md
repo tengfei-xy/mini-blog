@@ -13,10 +13,11 @@ $ cmake . -DWITH_BOOST=/home/tengfei/mysql-5.7.27/boost/boost_1_59_0 -DCMAKE_INS
 
 $ make
 $ make install
-$ cd /usr/local/mysql
-$ groupadd mysql && useradd -r -g mysql -s /bin/false mysql
-$ chown -R mysql:mysql ./* && chmod -R 750 ./*
-$ bin/mysql_install_db --user=mysql --basedir=/usr/local/mysql5.7 --datadir=/usr/local/mysql5.7/data
+$ cd /usr/local/mysql-5.7.27
+$ sudo groupadd mysql && sudo useradd -r -g mysql -s /bin/false mysql
+$ sudo mkdir data logs
+$ sudo chown -R mysql:mysql-5.7.27 ./* && chmod -R 750 ./*
+$ bin/mysqld --initialize --user=mysql --basedir=/usr/local/mysql-5.7.27 --datadir=/usr/local/mysql-5.7.27/data
 ln -s /var/lib/mysql/mysql.sock /tmp/mysql.sock
 ```
 
