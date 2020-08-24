@@ -1,5 +1,7 @@
 # psexec 常用实例锦集
 
+[PsExec官方文档](https://docs.microsoft.com/en-us/sysinternals/downloads/psexec)
+
 注：绝大多数情况都需要启动ADMIN$共享,查看方式:`net share`
 
 ## 交互式：在远程主机上运行本地程序
@@ -14,7 +16,7 @@
 
 ## 说明
 
-**Usage: psexec [\\computer[,computer2[,...] | @file\]][-u user [-p psswd][-n s][-r servicename][-h][-l][-s|-e][-x][-i [session]][-c executable [-f|-v]][-w directory][-d][-<priority>][-a n,n,...] cmd [arguments]**
+ `psexec [\\computer[,computer2[,...] | @file\]][-u user [-p psswd][-n s][-r servicename][-h][-l][-s|-e][-x][-i [session]][-c executable [-f|-v]][-w directory][-d][-<priority>][-a n,n,...] cmd [arguments]`
 
 | Parameter       | Description                                                  |
 | :-------------- | :----------------------------------------------------------- |

@@ -1,7 +1,9 @@
 # 使用yaml.v3 解析ymal记录
 ## 准备环境
 `go get gopkg.in/yaml.v3`
+
 ## config.yaml
+
 basic:
  sendemail: "taotengfei@zhiweidata.com"
 mysql:
@@ -10,6 +12,7 @@ mysql:
  unixsocket: "/tmp/mysql.sock"
  enableunixsocket: true
 inst:
+
 - 
  title: "crgk"
  explain : "成人高考"
