@@ -1,10 +1,8 @@
 # netsh
 ## 例子
 
-主要DNS：netsh interface ip set dns "本地连接" static 172.16.41.130 primary no
-次要DNS：netsh interface ip add dnsservers "666" 8.8.8.8 ind
-
-ex=2 no
+修改主要DNS：netsh interface ip set dns "本地连接" static 172.16.41.130 primary
+添加次要DNS：netsh interface ip add dnsservers "666" 8.8.8.8 index=2
 修改IP：netsh interface ipv4 set address "以太网 2" static 192.168.1.98 255.255.255.0 192.168.1.1
 查看正在使用的interface接口
 netsh interface show interface

@@ -2,7 +2,7 @@
 ## 全备份
 
 1. 开始备份
-`innobackupex --defaults-file=my.cnf --user=name --host=name --password= --port=port --socket=socket  PATH`
+`innobackupex --defaults-file=my.cnf --user=name --host=name --password= --no-timestamp --port=port --socket=socket  PATH`
 2. 记录备份时变化的日志，回滚没有提交的事务日志数据
 `innobackupex --apply-log --use-memory=32M backup/`
 3. 开始恢复
@@ -17,6 +17,7 @@ mv -
 基于全备份增加两个参数，要用到上一次备份路径
 --incremental
 --incremental-basedir=上一次备份路径
+
 ## 增量恢复
 命令相同
 innobackupex --apply-log --use-memory=32M backup/
