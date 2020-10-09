@@ -7,3 +7,7 @@ firewall-cmd --zone=public --query-port=80/tcp
 firewall-cmd --zone=public --remove-port=80/tcp --permanent
 添加
 firewall-cmd --zone=public --add-port=80/tcp --permanent
+
+禁止ping
+
+firewall-cmd --permanent --add-rich-rule='rule protocol value=icmp drop'
