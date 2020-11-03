@@ -11,3 +11,8 @@ firewall-cmd --zone=public --add-port=80/tcp --permanent
 禁止ping
 
 firewall-cmd --permanent --add-rich-rule='rule protocol value=icmp drop'
+
+启用zone
+
+firewall-cmd --set-default-zone=aliyun
+

@@ -6,5 +6,5 @@
 
 ## linux/mac
 
-`export **GOPROXY**=https://mirrors.aliyun.com/goproxy/`
+`export GOPROXY=https://mirrors.aliyun.com/goproxy/`
 

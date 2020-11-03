@@ -1,1 +1,0 @@
-记载了关于Linux和Windows以及较少的Mac方面的小知识
