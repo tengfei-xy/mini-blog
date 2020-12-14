@@ -1,12 +1,16 @@
 # firewall-cmd
 重新载入
 firewall-cmd --reload
-查看
+查看端口
 firewall-cmd --zone=public --query-port=80/tcp
-删除
+删除端口
 firewall-cmd --zone=public --remove-port=80/tcp --permanent
-添加
+添加端口
 firewall-cmd --zone=public --add-port=80/tcp --permanent
+
+查看所有开放的端口
+
+firewall-cmd --list-ports
 
 禁止ping
 

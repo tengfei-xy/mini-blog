@@ -1,0 +1,44 @@
+# Numeric Literals
+
+| 类型  | 范围                 |
+| ----- | -------------------- |
+| Int8  | between -128 and 127 |
+| Uint8 | between 0 and 2255   |
+|       |                      |
+
+
+
+## 基本表示方法
+
+```swift
+let decimalInteger = 17
+let binaryInteger = 0b10001       // 17 ,0b前缀的二进制
+let octalInteger = 0o21           // 17 ,0o前缀的八进制
+let hexadecimalInteger = 0x11     // 17 ,ox浅醉的十六进制
+
+
+let hexadecimalDouble = 0xC.3p0
+```
+
+### exp数值
+
+1.25e-2 means 1.25 x 10^-2^, or 0.0125
+
+`let exponentDouble = 1.25e-2`
+
+
+
+1.25e2 means 1.25 x 10^2^, or 125.0
+
+`let exponentDouble = 1.25e2`
+
+### 人性化阅读
+
+```swift
+let paddedDouble = 000123.456
+let oneMillion = 1_000_000
+let justOverOneMillion = 1_000_000.000_000_1
+```
+
+## Numberic Type Conversion
+

@@ -12,7 +12,7 @@ mac端使用microsoft Remote Desktop远程vps服务器，同时配置重定向�
 >
 > 举例：
 >
-> cmd /k \\tsclient\windows-proxy-init\basicInit.bat tsclient http://tools.file.irybd.com/windows-proxy-init.rar cq05	02320374626	151314
+> cmd /k \\tsclient\windows-proxy-init\basicInit.bat tsclient http://tools.file.irybd.com/windows-proxy-init.rar huzhou06   057247788133  808717
 
 ## 特定值说明
 
