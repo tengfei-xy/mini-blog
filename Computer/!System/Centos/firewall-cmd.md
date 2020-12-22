@@ -16,7 +16,10 @@ firewall-cmd --list-ports
 
 firewall-cmd --permanent --add-rich-rule='rule protocol value=icmp drop'
 
+创建zone
+
+firewall-cmd --new-zone=<zone>
+
 启用zone
 
 firewall-cmd --set-default-zone=aliyun
-

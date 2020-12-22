@@ -1,0 +1,32 @@
+# docker代理
+
+[参考链接](https://note.qidong.name/2020/05/docker-proxy/)
+
+## dockerd代理
+
+在执行`docker pull`时，是由守护进程`dockerd`来执行。 因此，代理需要配在`dockerd`的环境中。 而这个环境，则是受`systemd`所管控，因此实际是`systemd`的配置。
+
+```sh
+sudo mkdir -p /etc/systemd/system/docker.service.d
+sudo touch /etc/systemd/system/docker.service.d/proxy.conf
+```
+
+在这个`proxy.conf`文件（可以是任意`*.conf`的形式）中，添加以下内容：
+
+```ini
+[Service]
+Environment="HTTP_PROXY=http://proxy.example.com:8080/"
+Environment="HTTPS_PROXY=http://proxy.example.com:8080/"
+Environment="NO_PROXY=localhost,127.0.0.1,.example.com"
+```
+
+```bash
+ sudo systemctl daemon-reload
+ 
+ # 验证配置
+ sudo systemctl show --property Environment docker
+ 
+ # 重启docker
+ sudo systemctl restart docker
+```
+
