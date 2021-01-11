@@ -15,3 +15,4 @@ git config --global --get http.proxy
 取消代理:
 
 git config --global --unset http.proxy
+

@@ -1,4 +1,7 @@
 # firewall-cmd
+
+[参考链接](https://juejin.cn/post/6844904162988130312)
+
 重新载入
 firewall-cmd --reload
 查看端口
@@ -15,6 +18,8 @@ firewall-cmd --list-ports
 禁止ping
 
 firewall-cmd --permanent --add-rich-rule='rule protocol value=icmp drop'
+
+firewall-cmd --permanent --remove-rich-rule='rule protocol value=icmp drop'
 
 创建zone
 
