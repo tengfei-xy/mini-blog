@@ -4,7 +4,7 @@
 
 ## 初始化 主机
 
-`sh -c "$(curl -fsSL https://file.xunyang.site/init-host.sh)"`
+`sh -c "$(curl -fsSL https://file.xunyang.site/xunyang/init-host.sh)"`
 
 
 

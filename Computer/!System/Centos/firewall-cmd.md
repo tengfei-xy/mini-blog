@@ -1,4 +1,4 @@
-# firewall-cmd
+firewall-cmd
 
 [参考链接](https://juejin.cn/post/6844904162988130312)
 
@@ -28,3 +28,7 @@ firewall-cmd --new-zone=<zone>
 启用zone
 
 firewall-cmd --set-default-zone=aliyun
+
+针对具体ip和端口
+
+firewall-cmd --permanent --add-rich="rule family="ipv4" source address="183.135.155.40" port protocol="tcp" port="3306" accept"
