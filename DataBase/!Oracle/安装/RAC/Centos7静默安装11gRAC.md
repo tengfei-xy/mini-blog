@@ -291,7 +291,7 @@ cd 18370031/
 
 注：第一个节点执行完俩条命令后，再去二个节点执行
 
-注，多检查日志，执行完毕后可`ehco $?`查看返回值，0则正确
+注，多检查日志，执行完毕后可`ehco $?`查看返回值，0则正确
 
 ```bash
 /u01/app/grid/oraInventory/orainstRoot.sh
@@ -524,7 +524,7 @@ TOTALMEMORY = "800"
 
 以oracle用户执行建库
 
-注：如果运行时直接结束没有任何输出，建议从图形化方式执行rbca
+注：如果运行时直接结束没有任何输出，建议从图形化方式执行rbca，日志位于`$ORACLE_HOME/cfgtoollogs/dbca`
 
 ```
 cd $ORACLE_HOME
