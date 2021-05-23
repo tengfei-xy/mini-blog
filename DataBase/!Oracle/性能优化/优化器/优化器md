@@ -1,0 +1,15 @@
+## optimizer_mode
+
+查看实例级优化器设置
+
+```
+select name,value,isdefault,ismodified,description from v$system_parameter where name like '%optimizer_mode%';
+select value from v$system_parameter where name='optimizer_mode';
+```
+
+查看当前会话的设置
+
+```
+select value from v$parameter where name='optimizer_mode';
+```
+

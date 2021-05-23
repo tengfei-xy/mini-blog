@@ -1,65 +1,42 @@
+# Centos7.8静默安装11gRAC
+
+修改时间:2021/04/29
+
+本文需要的rpm、安装包在[百度网盘](https://pan.baidu.com/s/1KEb2QFoM4rlNHJOq1ljSTQ)提取码: cebv 
+
+## 基本信息与配置
+
 操作系统：Centos7.8
 
 oracle：11g 11.2.0.4
 
-# 安装grid
+|          | 主机A | 主机B |
+| :------: | :---: | :---: |
+|  主机名  | ora1  | ora2  |
+| grid用户 | ora2  | Ora2  |
+|          |       |       |
 
-## 准备工作
+/etc/hosts
+
+```
+192.168.3.57 ora1
+192.168.3.58 ora2
+
+# 以下三个IP交给安装包进行配置，所以无需ping通或是某台具体的主机
+192.168.3.88 ora1-vip
+192.168.3.89 ora2-vip
+192.168.3.90 ora-scan
+```
 
 关闭防火墙和SELinux
 
 ```bash
 systemctl disable firewalld
-# 永久关闭SELINUX
+systemctl stop firewalld
+# 永久关闭SELINUX 或临时关闭 setenforce 0
 sed -i 's/=enforcing/=disabled/g'  /etc/selinux/config
+# 可选
 reboot
-```
-
-修改内核参数/etc/sysctl.conf
-
-```bash
-fs.aio-max-nr = 1048576
-fs.file-max = 6815744
-kernel.shmall = 16451328
-kernel.shmmax = 33692319744
-kernel.shmmni = 4096
-kernel.sem = 250 32000 100 128
-net.ipv4.ip_local_port_range = 9000 65500
-net.core.rmem_default = 262144
-net.core.rmem_max = 4194304
-net.core.wmem_default = 262144
-net.core.wmem_max = 1048576
-```
-
-生效内核参数
-
-```
-sysctl -p
-```
-
-修改/etc/security/limits.conf 
-
-```bash
-grid soft nproc 2047
-grid hard nproc 16384
-grid soft nofile 1024
-grid hard nofile 65536
-```
-
-### 安装依赖
-
-外部依赖包
-
-```bash
-yum install -y binutils-* libc* compat-libstdc++-* elfutils-libelf-* elfutils-libelf-* elfutils-libelf-devel-static-* gcc-* gcc-c++-* glibc-* glibc-common-* glibc-devel-* glibc-headers-* kernel-headers-* ksh-* libaio-* libaio-devel-* libgcc-* libgomp-* libstdc++-* libstdc++-devel-* make-* sysstat-* compat-libcap* smartmontools
-```
-
- 安装cvuqdisk包
-
-```bash
-# 进入安装文件夹
-cd grid/
-rpm -ivh rpm/cvuqdisk-1.0.9-1.rpm
 ```
 
 ### gird 用户设置
@@ -74,10 +51,12 @@ groupadd asmoper
 
 useradd -g oinstall -G asmadmin,asmdba,asmoper,dba grid
 echo "grid" | passwd grid --stdin
-#usermod -g oinstall -G oper,dba,asmdba oracle
+
 ```
 
- .bash_profile
+编辑Grid用户的 `.bash_profile`
+
+注： ORA1的ORACLE_SID=+ASM1，ora2的ORACLE_SID=+ASM2
 
 ```shell
 export ORACLE_BASE=/u01/app/grid/base
@@ -96,7 +75,117 @@ export PATH
 . ~/.bash_profile
 ```
 
-配置RAC的节点互信，在主节点用grid用户执行
+### oracle 用户设置
+
+新建oracle用户
+
+```bash
+useradd -g oinstall -G oper,dba,asmdba -d /home/oracle oracle
+echo "oracle" | passwd oracle --stdin
+```
+
+编辑oracle用户的`.bash_profile`
+
+注：ora1的ORACLE_SID=rac1，ora2的ORACLE_SID=rac2
+
+```bash
+export ORACLE_SID=rac1
+export ORACLE_BASE=/u01/app/oracle
+export ORACLE_HOME=/u01/app/oracle/product/11.2.0/db_1
+
+PATH=$PATH:$HOME/.local/bin:$HOME/bin:$ORACLE_HOME/bin
+export PATH
+
+```
+
+### 文件夹设置
+
+双库创建相同的文件夹结构
+
+```
+# root用户执行
+
+mkdir -p /u01/app/oracle/product/11.2.0/db_1
+mkdir -p /u01/app/grid/base
+mkdir -p /u01/app/grid/home
+
+chown -R grid:oinstall /u01
+chown -R oracle:oinstall /u01/app/oracle
+```
+
+### 内核参数
+
+修改内核参数/etc/sysctl.conf
+
+```bash
+cat << EOF > /etc/sysctl.conf
+fs.aio-max-nr = 1048576
+fs.file-max = 6815744
+kernel.shmall = 16451328
+kernel.shmmax = 33692319744
+kernel.shmmni = 4096
+kernel.sem = 250 32000 100 128
+net.ipv4.ip_local_port_range = 9000 65500
+net.core.rmem_default = 262144
+net.core.rmem_max = 4194304
+net.core.wmem_default = 262144
+net.core.wmem_max = 1048576
+EOF
+
+```
+
+生效内核参数
+
+```
+sysctl -p
+```
+
+修改/etc/security/limits.conf 
+
+```bash
+cat << EOF > /etc/security/limits.conf
+oracle   soft   nproc    131072
+oracle   hard   nproc    131072
+oracle   soft   nofile   131072
+oracle   hard   nofile   131072
+oracle   soft   core     unlimited
+oracle   hard   core     unlimited
+oracle   soft   memlock  50000000
+oracle   hard   memlock  50000000
+grid soft nproc 2047
+grid hard nproc 16384
+grid soft nofile 1024
+grid hard nofile 65536
+EOF
+
+```
+
+### 安装依赖
+
+本地系统镜像中可直接安装
+
+```bash
+yum install -y binutils-* libc* compat-libstdc++-* elfutils-libelf-* elfutils-libelf-* elfutils-libelf-devel-static-* gcc-* gcc-c++-* glibc-* glibc-common-* glibc-devel-* glibc-headers-* kernel-headers-* libaio-* libaio-devel-* libgcc-* libgomp-* libstdc++-* libstdc++-devel-* make-* sysstat-* compat-libcap* smartmontools
+```
+
+额外需要
+
+```
+compat-libstdc++-33-3.2.3-72.el7.x86_64.rpm
+pdksh-5.2.14-37.el5_8.1.x86_64.rpm
+```
+
+安装cvuqdisk包
+
+```bash
+# 进入安装文件夹
+cd grid/
+rpm -ivh rpm/cvuqdisk-1.0.9-1.rpm
+```
+
+## 互信
+
+配置RAC的节点互信，在主节点执行一次即可，用root或grid执行
 
 ```bash
 sshsetup/sshUserSetup.sh -hosts "ora1 ora2" -user grid -advanced -noPromptPassphrase
@@ -104,7 +193,7 @@ sshsetup/sshUserSetup.sh -hosts "ora1 ora2" -user grid -advanced -noPromptPassph
 
 注：验证互信的方式：ssh 主机名 date，能免密执行
 
-## 安装共享磁盘（root用户执行）
+## 安装共享磁盘（双节点的root用户执行）
 
 ### 安装iscsi服务端
 
@@ -128,14 +217,23 @@ rpm -ivh kernel-3.10.0-1160.11.1.el7.x86_64.rpm kernel-3.10.0-1160.15.2.el7.x86_
 rpm -ivh kmod-oracleasm-2.0.8-28.el7.x86_64.rpm oracleasmlib-2.0.12-1.el7.x86_64.rpm oracleasm-support-2.1.11-2.el7.x86_64.rpm
 ```
 
+配置磁盘
+
+```bash
+[root@ora1 ~]# oracleasm configure -i
+Default user to own the driver interface []: grid
+Default group to own the driver interface []: oinstall
+Start Oracle ASM library driver on boot (y/n) [n]: y
+Scan for Oracle ASM disks on boot (y/n) [y]: y
+```
+
 初始化磁盘
 
 ```
-oracleasm configure -i
 oracleasm init
 ```
 
-创建磁盘
+创建磁盘(单节点执行)
 
 ```bash
 oracleasm createdisk DB1 /dev/sdc1
@@ -149,13 +247,13 @@ oracleasm createdisk DB3 /dev/sde1
 oracleasm scandisks
 ```
 
-查看磁盘
+查看磁盘（双节点可以验证查看）
 
 ```
 oracleasm listdisks
 ```
 
-## 安装grid（grid用户执行）
+## 执行安装grid（grid用户执行）
 
 执行检查
 
@@ -163,7 +261,11 @@ oracleasm listdisks
 ./runcluvfy.sh stage -pre crsinst -n ora1,ora2 -fixup -verbose
 ```
 
-grid_install.rsp
+### 配置GI
+
+修改response/grid_install.rsp
+
+注：主节点修改response/grid_install.rsp即可，其他节点无需设置
 
 ```ini
 oracle.install.responseFileVersion=/oracle/install/rspfmt_crsinstall_response_schema_v11_2_0
@@ -227,7 +329,7 @@ PROXY_PWD=
 PROXY_REALM=
 ```
 
-开始静默安装（约十分钟）
+进入安装文件夹，并执行下列命令，开始静默安装（约十分钟）
 
 
 ```bash
@@ -236,9 +338,9 @@ PROXY_REALM=
 
 注：图形化安装窗口异常的问题解决命令：`./runInstaller -jreLoc /etc/alternatives/jre_1.8.0`
 
-注：通过`echo $?`是否返回`0`来判断安装成功
+注：通过`echo $?`是否返回`0`来判断安装成功，一般出现`CAUSE: `就是失败了
 
-## 关于Centos7服务的补丁：p18370031
+## 关于Centos7服务的·：p18370031
 
 ### 或不打补丁
 
@@ -276,6 +378,8 @@ systemctl start ohasd.service
 
 打补丁后执行root.sh，将提示**Adding Clusterware entries to oracle-ohasd.service**
 
+注：主节点打补丁后，可以选择是否在其他节点上执行
+
 ```bash
 # 进入补丁目录
 cd 18370031/
@@ -291,7 +395,7 @@ cd 18370031/
 
 注：第一个节点执行完俩条命令后，再去二个节点执行
 
-注，多检查日志，执行完毕后可`ehco $?`查看返回值，0则正确
+注，出错时多检查日志，执行完毕后可`ehco $?`查看返回值，0则正确
 
 ```bash
 /u01/app/grid/oraInventory/orainstRoot.sh
@@ -349,26 +453,7 @@ CRS-4533: Event Manager is online
 
 # 安装数据库
 
-## 用户配置
-
-新建oracle用户
-
-```bash
-useradd -g oinstall -G oper,dba,asmdba -d /home/oracle oracle
-```
-
-.bash_profile
-
-```bash
-su - oracle
-vi ~/.bash_profile
-export ORACLE_SID=rac
-export ORACLE_BASE=/u01/app/oracle
-export ORACLE_HOME=/u01/app/oracle/product/11.2.0/db_1
-
-PATH=$PATH:$HOME/.local/bin:$HOME/bin:$ORACLE_HOME/bin
-export PATH
-```
+## 互信
 
  配置RAC的节点互信，在主节点用oracle用户执行
 
@@ -376,11 +461,14 @@ export PATH
 # 进入安装目录
 cd database
 sshsetup/sshUserSetup.sh -hosts "ora1 ora2" -user oracle -advanced -noPromptPassphrase
+
+# 验证：无需输入密码查看对方主机的时间
+ssh ora1 date
 ```
 
-注：互信检查方式为：``ssh 主机名 date`,能免密执行
+注：互信检查方式为：`ssh 主机名 date`,能免密执行
 
-## 安装数据库
+## 配置数据库
 
 db_install.rsp
 
@@ -449,7 +537,12 @@ AUTOUPDATES_MYORACLESUPPORT_PASSWORD=
 注：每个节点需要有相同文件结构
 
 注：其他远程节点会自动复制，远程节点的$ORACLE_HOME大约有4.2G，可查看进度（大约十五分钟）
+
+注：安装之间再检查下oracle用户是否属于dba组，否则安装失败，会提示` CAUSE: The installation user account must be a member of all groups required for installation.`
+
 ```bash
+# 进入安装目录
+cd database/
 ./runInstaller -ignorePrereq -silent -force -responseFile `pwd`/response/db_install.rsp -showProgress
 ```
 
@@ -463,7 +556,7 @@ AUTOUPDATES_MYORACLESUPPORT_PASSWORD=
 /u01/app/oracle/product/11.2.0/db_1/root.sh
 ```
 
-## 创建磁盘组（在节点一上执行）
+## 创建磁盘组（仅在节点一上执行）
 
 以grid用户进入SQLPLUS
 
@@ -483,10 +576,10 @@ AUTOUPDATES_MYORACLESUPPORT_PASSWORD=
 创建磁盘组
 
 ```
- SQL> CREATE DISKGROUP DATA external REDUNDANCY disk '/dev/oracleasm/disks/DB2' ATTRIBUTE 'au_size'='1M','compatible.asm'='11.2';
+SQL> CREATE DISKGROUP DATA external REDUNDANCY disk '/dev/oracleasm/disks/DB2' ATTRIBUTE 'au_size'='1M','compatible.asm'='11.2';
 Diskgroup created.
 
- SQL> CREATE DISKGROUP FRA external REDUNDANCY disk '/dev/oracleasm/disks/DB3' ATTRIBUTE 'au_size'='1M','compatible.asm'='11.2';
+SQL> CREATE DISKGROUP FRA external REDUNDANCY disk '/dev/oracleasm/disks/DB3' ATTRIBUTE 'au_size'='1M','compatible.asm'='11.2';
  Diskgroup created.
 ```
 
@@ -509,86 +602,42 @@ dbca.rsp，主要修改CREATEDATABASE节的以下内容
 ```ini
 [CREATEDATABASE]
 GDBNAME = "racdb"
+# SID指定的是前缀，后缀是1，所以oracle的用户的SID应该是rac1或rac2
 SID = "rac"
-NODELIST=rac1,rac2
-TEMPLATENAME = "General_Purpose.dbc"
+NODELIST="ora1,ora2"
 SYSPASSWORD = "password"
 SYSTEMPASSWORD = "password"
 DATAFILEDESTINATION ="+DATA"
 RECOVERYAREADESTINATION="+DATA"
-STORAGETYPE=ASM
+STORAGETYPE="ASM"
 CHARACTERSET = "AL32UTF"
 NATIONALCHARACTERSET= "UTF8"
-TOTALMEMORY = "800"
 ```
 
 以oracle用户执行建库
 
 注：如果运行时直接结束没有任何输出，建议从图形化方式执行rbca，日志位于`$ORACLE_HOME/cfgtoollogs/dbca`
 
-```
+```bash
 cd $ORACLE_HOME
 dbca -silent -responseFile `pwd`/assistants/dbca/dbca.rsp
+# 如果$?不是0，可以去/u01/app/oracle/cfgtoollogs/dbca查看日志
 ```
-
-### 节点一修改archivelog
-
-```
-SQL> startup mount
-SQL> alter system set log_archive_dest_1='location=+ARCH';
-```
-
-此时另一节点查看log_archive_dest_1,结果如下
-
-```sql
- SQL> show parameter log_archive_dest_1
- NAME				     TYPE	 VALUE
------------------------------------- ----------- ------------------------------
-log_archive_dest_1		     string	 location=+ARCH
-log_archive_dest_10		     string
-log_archive_dest_11		     string
-log_archive_dest_12		     string
-log_archive_dest_13		     string
-log_archive_dest_14		     string
-log_archive_dest_15		     string
-log_archive_dest_16		     string
-log_archive_dest_17		     string
-log_archive_dest_18		     string
-log_archive_dest_19		     string
-```
-
-# 重启测试
-
-## 数据库重启
-
-双节点同时执行
-
-```
-shutdown immediate;
-```
-
-第一节点，启动数据库到 mount 状态，开启归档模式，最后正常打开数据库 
-
-注意：节点处于Archive Mode时不能startup
-
-```
-SQL> startup mount;
-SQL> archive log list;
-SQL> alter database archivelog;
-SQL> archive log list;
-```
-
-第二节点直接启动
-
-```
-SQL> startup;
-```
-
-## 集群重启
-
-第一节点用root用户直接关闭并启动集群
 
 注：启动/关闭集群需要root权限，可以吧grid用户变量复制到root用户的.bash_profile下
+
+```
+ cat /home/grid/.bash_profile >.bash_profile 
+ . .bash_profile
+```
+
+到此安装结束！
+
+
+
+集群重启命令
+
+第一节点用root用户直接关闭并启动集群
 
 ```
 # 关得快

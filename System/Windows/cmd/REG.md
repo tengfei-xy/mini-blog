@@ -1,4 +1,6 @@
 # REG
+## 查找
+
 REG QUERY KeyName \[/v \[ValueName] | /ve] \[/s]
       [/f Data [/k] [/d] [/c] [/e]] [/t Type] [/z] [/se Separator]
 
@@ -63,3 +65,10 @@ REG QUERY KeyName \[/v \[ValueName] | /ve] \[/s]
 
   REG QUERY HKLM\SOFTWARE /ve
 显示在 HKLM\SOFTWARE 下的项、值和数据(默认)
+
+## 修改
+
+```
+reg add 
+```
+

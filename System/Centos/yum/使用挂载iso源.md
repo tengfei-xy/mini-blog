@@ -1,6 +1,6 @@
 ```shell
 mkdir /mnt/iso
-mount -o /dev/sr0/ !$
+mount -o loop /dev/sr0/ !$
 vi /etc/yum.repos.d/local.repo
 
 [local]
