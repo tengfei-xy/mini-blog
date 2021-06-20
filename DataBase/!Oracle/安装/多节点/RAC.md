@@ -632,17 +632,3 @@ dbca -silent -responseFile `pwd`/assistants/dbca/dbca.rsp
 ```
 
 到此安装结束！
-
-
-
-集群重启命令
-
-第一节点用root用户直接关闭并启动集群
-
-```
-# 关得快
-[root@ora1 ~]# crsctl stop cluster -all
-# 启动慢
-[root@ora1 ~]# crsctl start cluster -all
-```
-

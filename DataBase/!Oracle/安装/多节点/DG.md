@@ -241,7 +241,7 @@ SQL> startup force
 主库
 
 ```sql
-SQL>  alter system swich logfile
+SQL>  alter system switch logfile;
 ```
 
 从库
@@ -265,6 +265,6 @@ sql > select max(SEQUENCE#) from v$log;
 查询log
 
 ```shell
-less +F $ORACLE_BASE/diag/rdbms/<db_name>/$ORALCE_SID/trace/alert_$ORALCE_SID.log
+less +F $ORACLE_BASE/diag/rdbms/<db_name>/$ORALCE_SID/trace/alert_$ORACLE_SID.log
 ```
 

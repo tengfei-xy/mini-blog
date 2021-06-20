@@ -16,7 +16,8 @@ make -j `grep processor /proc/cpuinfo  | wc -l`
 make install
 cd /usr/local/mysql-5.7.27
 groupadd mysql && useradd -r -g mysql -s /bin/false mysql
-mkdir data logs etc
+mkdir data logs etc 
+touch /usr/local/mysql-5.7.27/logs/mysql-error.log
 chown -R mysql:mysql ../mysql-5.7.27 && chmod -R 755 ../mysql-5.7.27
 bin/mysqld --initialize --user=mysql --basedir=/usr/local/mysql-5.7.27 --datadir=/usr/local/mysql-5.7.27/data
 ```
