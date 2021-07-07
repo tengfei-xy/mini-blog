@@ -14,9 +14,9 @@
 a.创建交换文件
 
 ```
-> fallocate -l 4G /swap
+> fallocate -l 4G /swapfile
 或
-> dd if=/dev/zero of=/swap bs=1M count=4096123
+> dd if=/dev/zero of=/swap bs=1M count=8192
 ```
 
 b.设置可访问权限
@@ -25,7 +25,7 @@ b.设置可访问权限
 c.格式化文件
 `> mkswap /swapfile`
 
-d.激活swap空间
+d.激活swap空间(每次swapon可以叠加swap空间)
 `> swapon /swapfile`
 
 f.开机自动启用swap空间

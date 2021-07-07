@@ -6,8 +6,9 @@
 
 注：如果表太多，不能一次性写到内存中，就分成分区，写入磁盘缓存段。所以只适合小表。
 
-使用方式：`/*+ USE_HASH(table_name1 table_name2)*/`
+hint方式：`/*+ USE_HASH(table_name1 table_name2)*/`
 
 使用场景：Hash join在两个表的数据量差别很大的时候。
 
 参考文档：[链接](https://www.cnblogs.com/xqzt/p/4469673.html)
+

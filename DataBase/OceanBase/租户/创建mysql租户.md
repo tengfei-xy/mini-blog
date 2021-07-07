@@ -65,7 +65,6 @@ ware
 
 ```bash
 ./hap.py ob1.obs0.mysqlmode_tpcc
-
 ```
 
 ##  删除示例数据库脚本(可选)
