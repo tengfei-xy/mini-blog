@@ -1,6 +1,6 @@
 2012版本：
 
-SQLServerManager11.msc
+C:\windows\sysWoW64\SQLServerManager11.msc
 
 2008版本
 
