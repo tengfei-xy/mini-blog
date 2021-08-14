@@ -6,7 +6,7 @@ default-character-set = utf8mb4
 
 [mysqld]
 skip-grant-tables=0
-log-bin = /usr/local/mysql-5.7.27/logs/mysql-bin.log
+log-bin = /usr/local/mysql-5.7.35/logs/mysql-bin.log
 binlog_format = mixed
 sync_binlog = 5
 
@@ -14,8 +14,8 @@ lower_case_table_names=1
 port = 3306
 socket = /tmp/mysql.sock
 
-basedir = /usr/local/mysql-5.7.27/
-datadir = /usr/local/mysql-5.7.27/data
+basedir = /usr/local/mysql-5.7.35/
+datadir = /usr/local/mysql-5.7.35/data
 user = mysql
 bind-address = 0.0.0.0
 server-id = 1
@@ -55,10 +55,10 @@ log_bin = mysql-bin
 binlog_format = mixed
 expire_logs_days = 30
 
-log_error = /usr/local/mysql-5.7.27/logs/mysql-error.log
+log_error = /usr/local/mysql-5.7.35/logs/mysql-error.log
 slow_query_log = 1
 long_query_time = 1
-slow_query_log_file = /usr/local/mysql-5.7.27/logs/mysql-slow.log
+slow_query_log_file = /usr/local/mysql-5.7.35/logs/mysql-slow.log
 
 performance_schema = 0
 explicit_defaults_for_timestamp
@@ -101,6 +101,6 @@ sort_buffer_size = 8M
 read_buffer = 4M
 write_buffer = 4M
 [mysqld_safe]
-log_error = /usr/local/mysql-5.7.27/logs/mysql-error.log
-pid-file = /usr/local/mysql-5.7.27/logs/mysql.pid
+log_error = /usr/local/mysql-5.7.35/logs/mysql-error.log
+pid-file = /usr/local/mysql-5.7.35/logs/mysql.pid
 ```
