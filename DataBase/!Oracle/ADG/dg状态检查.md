@@ -101,6 +101,12 @@ sql> select dest_name,error from v$archive_dest where status='ERROR';
 sql> select * from V$DATAGUARD_STATUS order by TIMESTAMP;
 ```
 
+查看备库状态
+
+```
+SELECT PROCESS, STATUS, THREAD#, SEQUENCE#, BLOCK#, DELAY_MINS FROM V$MANAGED_STANDBY;
+```
+
 ## 查看 MAX(SEQUENCE)
 
 ```

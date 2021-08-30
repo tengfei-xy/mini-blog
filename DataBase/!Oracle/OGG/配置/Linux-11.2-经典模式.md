@@ -1,6 +1,47 @@
-# 一、基本设置
+# 补充：目标库DDL
 
-## 用户配置
+如果目标库是空库，初始化之前需要先执行源库的DDL语句，
+
+> 前置语句
+>
+> ```sql
+> set long 99999         
+> set pagesize 1000
+> ```
+
+1. 确定schema的表空间
+
+   ```sql
+   select DEFAULT_TABLESPACE,TEMPORARY_TABLESPACE from dba_users where username='TENGFEI';
+   ```
+
+2. 导出用户表空间DDL
+
+   ```sql
+   SELECT DBMS_METADATA.GET_DDL('TABLESPACE', TS.tablespace_name) 
+   FROM DBA_TABLESPACES TS where ts.tablespace_name='XY';
+   ```
+
+3. 导出schemaDDL
+
+   ```sql
+   SELECT DBMS_METADATA.GET_DDL('USER',username) FROM DBA_USERS WHERE USERNAME='TENGFEI';
+   
+   -- GRANT UNLIMITED TABLESPACE TO <SCHEMA>
+   -- GRANT CREATE SESSION TO <SCHEMA>
+   ```
+
+4. 连接业务用户后，导出表、索引、存储过程DDL
+
+   ```sql
+   SELECT DBMS_METADATA.GET_DDL(U.OBJECT_TYPE, u.object_name)
+   FROM USER_OBJECTS u
+   where U.OBJECT_TYPE IN ('TABLE','INDEX','PROCEDURE');
+   ```
+
+# 一、双端：基础配置
+
+## 1. 用户配置
 
 1. 创建系统用户
 
@@ -21,7 +62,7 @@
    export PATH=$PATH:$ORACLE_HOME/bin:$ORACLE_HOME/jdk/bin
    ```
 
-## 安装ogg
+## 2. 安装ogg
 
 1. 创建OGG安装目录,并解压安装ogg文件
 
@@ -43,9 +84,8 @@
    Version 11.2.1.0.10 17241368 OGGCORE_11.2.1.0.0OGGBP_PLATFORMS_130813.0048_FBO
    Linux, x64, 64bit (optimized), Oracle 11g on Aug 13 2013 06:04:43
    Copyright (C) 1995, 2013, Oracle and/or its affiliates. All rights reserved.
-   GGSCI (ogg2) 1> 
    ```
-
+   
 3. 创建ogg表空间,并创建用户
 
    ```sql
@@ -61,46 +101,58 @@
 
    ```sql
    grant CONNECT, RESOURCE to ogg;
-   grant SELECT ANY DICTIONARY;
+   grant SELECT ANY DICTIONARY to ogg;
    grant EXECUTE on DBMS_FLASHBACK to ogg;
-   
    grant 
    select any table,
    flashback any table,
    insert any table,
    update any table,
    alter any table,
-   delete any table,
-   to ogg;
+   delete any table to ogg;
+   
    ```
-
+   
 5. 打开数据库附加日志和force log
 
    ```sql
-   SQL> select name,open_mode,force_logging,supplemental_log_data_min from v$database;
+   SQL> select open_mode,force_logging from v$database;
+   OPEN_MODE	           FOR
+   -------------------- ---
+   READ WRITE	         NO
    
-   NAME	  OPEN_MODE	       FOR SUPPLEME
-   --------- -------------------- --- --------
-   GDB	  READ WRITE	       NO  NO
    
+   shutdown immediate; 
+   startup mount; 
    SQL> alter database force logging;
    Database altered.
-   SQL> alter database add supplemental log data;
-   Database altered.
+   SQL> alter database open;
    ```
    
-6. 使用ogg安装目录下的sqlplus，安装并支持DDL脚本
-
+   ```sql
+   SQL> select supplemental_log_data_min,supplemental_log_data_pk,supplemental_log_data_ui from v$database;
+   
+   SUPPLEME SUP SUP
+   -------- --- ---
+   NO       NO  NO
+   SQL> alter database add supplemental log data (primary key,unique,foreign key) columns;
+   -- 关闭补充日志:alter database drop supplemental log data (primary key,unique,foreign key) columns;
    ```
-   @marker_setup.sql
-   @/u01/app/ogg/ddl_setup.sql
-   @/u01/app/ogg/role_setup.sql
-   @/u01/app/ogg/ddl_enable.sql
-   ```
+   
+   
+   
+6. 使用sqlplus安装marker表和Security Role
 
+   ```sql
+   -- 进入ogg安装目录
+   SQL> @marker_setup.sql
+   SQL> @role_setup.sql
+   SQL> GRANT GGS_GGSUSER_ROLE TO <loggedUser>;
+   ```
+   
 7. 创建管理目录
 
-   ```
+   ```sql
    GGSCI (ogg1) 1>  create subdirs
    Creating subdirectories under current directory /u01/app/ogg
    
@@ -115,7 +167,7 @@
    Stdout files                   /u01/app/ogg/dirout: created
    ```
 
-8. 源端：从sqplus创建的用户登录ggsci
+8. ==源端==：从sqplus创建的用户登录ggsci
 
     ```sql
     GGSCI (ogg1) 1> dblogin userid ogg,password ogg
@@ -129,13 +181,9 @@
     GGSCI (ogg1) 3> info trandata tengfei.*
     Logging of supplemental redo log data is enabled for table TENGFEI.IDT.
     Columns supplementally logged for table TENGFEI.IDT: ID3, ID2, ID.
-    
-    GGSCI (ogg1) 4> 
     ```
 
-# 二、OGG配置
-
-## 配置MGR管理进程
+# 二、双端：配置与启动管理进程
 
 ==注：配置时需要在原先的文件夹下==
 
@@ -157,27 +205,34 @@
     ```sql
     GGSCI (ogg1) 5> start mgr
     Manager started.
+    ```
     
-    # 查看状态,如果不是下方的特定的消息可通过view report mgr查看错误
+3. 查看状态(如果不是下方的特定的消息可通过view report mgr查看错误)
+
+    ```sql
     GGSCI (ogg1) 6> info mgr
     Manager is running (IP port ogg1.7809).
     ```
 
-## 配置初始化数据的进程
+
+
+# 三、双端：配置与初始化进程
 
 1. 源端添加EINI_1（extract进程）
 
-   ```
+   ```sql
    GGSCI (ogg1) 1> add extract eini_1, sourceistable
    EXTRACT added.
    ```
 
 2. 目标端添加RINI_1（REPLICAT进程）
 
-   ```
+   ```sql
    GGSCI (ogg2) 1> ADD REPLICAT RINI_1, SPECIALRUN
    REPLICAT added.
    # 将生成./dirchk/RINI_1.cpr文件
+   # SOURCEISTABLE          Extracts entire records from source tables.
+   # SPECIALRUN             Specifies a one-time processing task that does not checkpoint from run to run.
    ```
 
 3. 查看EINI_1的进程状态
@@ -185,7 +240,7 @@
    还没有配置和启动时，该进程是STOPPED状态
 
    ```sql
-   GGSCI (ogg1) 9> INFO EXTRACT *, TASKS
+   GGSCI (ogg1) 9> INFO EXTRACT EINI_1
    
    EXTRACT    EINI_1    Initialized   2021-07-12 09:05   Status STOPPED
    Checkpoint Lag       Not Available
@@ -196,8 +251,11 @@
 
 4. 源端：配置名为**EINI_1**的extract进程
 
+   ==注：TABLE可以指定*号作为通配符==
+
    ```
    GGSCI (ogg1) 10> edit params eini_1
+   
    extract EINI_1
    setenv (NLS_LANG=AMERICAN_AMERICA.ZHS16GBK)
    userid ogg, PASSWORD ogg
@@ -207,7 +265,11 @@
 
 5. 目标端：配置名为**RINI_1**的REPLICAT进程
 
+   ==注：map与target可以指定*号作为通配符==
+   
    ```
+   GGSCI (ora2) 6> edit params rini_1
+   
    REPLICAT RINI_1
    setenv (NLS_LANG=AMERICAN_AMERICA.ZHS16GBK)
    assumetargetdefs
@@ -215,14 +277,11 @@
    discardfile /u01/app/ogg/RINIaa.dsc, purge
    map tengfei.idt, target tengfei.idt;
    ```
-
    
 
-## 初始化数据
+==注：初始化数据工作只会做一次，目标端Rini_1不用手动启动==
 
-==注：初始化数据工作只会做一次==
-
-1. 源端启动，目标端Rini_1不用手动启动
+6. 源端启动
 
    ```
    GGSCI (ogg1) 2> start extract eini_1
@@ -230,24 +289,19 @@
    EXTRACT EINI_1 starting
    ```
 
-2. 查看进程
+7. 查看进程
 
    ```
    GGSCI (ogg1) 3> view report eini_1
    ```
 
-
 执行完后ggerr.log将显示：
 
 > 2021-07-16 11:25:58  INFO    OGG-00991  Oracle GoldenGate Capture for Oracle, eini_1.prm:  EXTRACT EINI_1 stopped normally.
 
+# 四、配置检查点
 
-
-## 配置检查点(可选)
-
-为了让 OGG 网络中断、服务器宕机、掉电等在突发情况也能正确断点续传，ORACLE 建议配置 OGG 的检查点队列。
-
-[参考文档](http://www.dba-oracle.com/t_goldengate_checkpoint_table.htm)
+为了让 OGG 网络中断、服务器宕机、掉电等在突发情况也能正确断点续传，ORACLE 建议配置 OGG 的检查点队列。[参考文档](http://www.dba-oracle.com/t_goldengate_checkpoint_table.htm)
 
 1. 源端和目标端配置并添加信息
 
@@ -271,6 +325,7 @@
 4. 从SQLPLUS使用ogg用户登录并查看检查点表
 
    ```sql
+   SQL> conn ogg/ogg
    SQL> select * from tab;
    
    TNAME			                     TABTYPE	CLUSTERID
@@ -298,19 +353,21 @@
    16 rows selected.
    ```
 
+# 五、源端：配置捕获、PUMP进程
 
-
-## 配置捕获进程
+## 1. 配置捕获进程
 
 1. 源端配置EORA_1进程：
 
-   ```
+   ```sql
    GGSCI (ogg1) 1> edit params eora_1
    
    EXTRACT EORA_1
+   -- 需要确定语言select userenv('language') from dual;
    SETENV (NLS_LANG=AMERICAN_AMERICA.ZHS16GBK)
    USERID ogg, PASSWORD ogg
    EXTTRAIL /u01/app/ogg/dirdat/aa
+   -- 多个表用*号
    TABLE tengfei.idt;
    ```
 
@@ -318,7 +375,7 @@
 
 2. 开始捕获
 
-   ```
+   ```sql
    GGSCI (ogg1) 2> add extract eora_1, tranlog, begin now
    EXTRACT added.
    GGSCI (ogg1) 3> add exttrail /u01/app/ogg/dirdat/aa, extract eora_1, megabytes 5
@@ -331,7 +388,7 @@
 
 3. 启动进程
 
-   ```
+   ```sql
    GGSCI (ogg1) 4> start extract eora_1
    
    Sending START request to MANAGER ...
@@ -340,9 +397,7 @@
 
    查看进程：`info extract eora_1`
 
-
-
-## 源端配置PUMP传输进程(可选)
+## 2. PUMP传输进程
 
 1. 源端配置
 
@@ -358,7 +413,7 @@
    TABLE tengfei.idt;
    ```
 
-2. 添加pump进程到OGG，并制定TRAIL文件
+2. 添加pump进程到OGG，并制定本地的TRAIL文件
 
    ```
     GGSCI (ogg1) 3> ADD EXTRACT PORA_1, EXTTRAILSOURCE /u01/app/ogg/dirdat/aa
@@ -384,7 +439,7 @@
 
 5. 启动进程
 
-   ```
+   ```sql
    GGSCI (ogg1) 6> start extract pora_1
    Sending START request to MANAGER ...
    EXTRACT PORA_1 starting
@@ -404,13 +459,14 @@
    注：当状态为abended时，可通过查看ggserr.log检查报错
 
    注：正常情况将在目标端dirdata文件夹下生成pa000000文件
+   
 
-## 目标端配置同步进程
+# 六、目标端配置同步进程
 
 1. 添加进程
 
    ```
-   GGSCI (ogg2) 1>  ADD REPLICAT RORA_1, exttrail /data/ogg/dirdat/aa, checkpointtable ogg.ggschkpt
+   GGSCI (ogg2) 1>  ADD REPLICAT RORA_1, exttrail /u01/app/ogg/dirdat/pa, checkpointtable ogg.ggschkpt
    REPLICAT added.
    ```
 
@@ -447,3 +503,7 @@
    ```
 
    
+
+
+
+到此配置完成，可检查数据同步情况！

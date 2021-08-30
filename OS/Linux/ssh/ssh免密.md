@@ -19,3 +19,11 @@
 
   注：提示/usr/bin/ssh-copy-id: ERROR: failed to open ID file '/root/.pub': 没有那个文件或目录时需要`ssh-keygen`
 
+
+
+免交互
+
+```
+ssh-keygen -t rsa -P \"\" -f /home/oracle/.ssh/id_rsa
+```
+
