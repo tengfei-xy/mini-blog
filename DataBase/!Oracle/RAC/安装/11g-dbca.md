@@ -1,3 +1,5 @@
+命令行式，暂有问题
+
 ```
 dbca -silent \
 -createDatabase \

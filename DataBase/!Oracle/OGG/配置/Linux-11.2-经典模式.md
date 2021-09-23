@@ -113,8 +113,10 @@
    
    ```
    
-5. 打开数据库附加日志和force log
+5. 数据库操作
 
+   归档日志
+   
    ```sql
    SQL> select open_mode,force_logging from v$database;
    OPEN_MODE	           FOR
@@ -128,6 +130,8 @@
    Database altered.
    SQL> alter database open;
    ```
+   
+   补充日志
    
    ```sql
    SQL> select supplemental_log_data_min,supplemental_log_data_pk,supplemental_log_data_ui from v$database;
@@ -149,7 +153,7 @@
    SQL> @role_setup.sql
    SQL> GRANT GGS_GGSUSER_ROLE TO <loggedUser>;
    ```
-   
+
 7. 创建管理目录
 
    ```sql
@@ -195,9 +199,19 @@
     # PORT 7809：OGG 管理进程监控端口。
     # PURGEOLDEXTRACTS：清除不需要的 trail 文件。
     # /ogg/dirdat：trail 文件存放位置。
-    # USECHECKPOINTS：使用检查点队列。
+    # USECHECKPOINTS：使用检查点队列
+    # minkeepdays 超过7天会删除
     port 7809
-    purgeoldextracts /u01/app/ogg/dirdat, usecheckpoints
+    purgeoldextracts /u01/app/ogg/dirdat, usecheckpoints, minkeepdays 7
+    # 每隔1小时检查EXTRACT的延迟情况
+    LAGREPORTHOURS 1
+    # 如果超过了30分钟就把延迟作为信息记录到错误日志中
+    LAGINFOMINUTES 30
+    # 如果延迟超过了45分钟，则把它作为警告写到错误日志中。
+    LAGCRITICALMINUTES 45
+    
+    # 自动重启 EXTRACT进程，表示每3分钟尝试重新启动所有EXTRACT进程，共尝试5次；
+    # AUTORESTART EXTRACT *,RETRIES5,WAITMINUTES 3
     ```
 
 2. 启动mgr
@@ -367,6 +381,7 @@
    SETENV (NLS_LANG=AMERICAN_AMERICA.ZHS16GBK)
    USERID ogg, PASSWORD ogg
    EXTTRAIL /u01/app/ogg/dirdat/aa
+   
    -- 多个表用*号
    TABLE tengfei.idt;
    ```
@@ -378,6 +393,7 @@
    ```sql
    GGSCI (ogg1) 2> add extract eora_1, tranlog, begin now
    EXTRACT added.
+   ## 队列大小5M
    GGSCI (ogg1) 3> add exttrail /u01/app/ogg/dirdat/aa, extract eora_1, megabytes 5
    EXTTRAIL added.
    ```
@@ -413,7 +429,7 @@
    TABLE tengfei.idt;
    ```
 
-2. 添加pump进程到OGG，并制定本地的TRAIL文件
+2. 添加pump进程到OGG，并指定本地的TRAIL文件
 
    ```
     GGSCI (ogg1) 3> ADD EXTRACT PORA_1, EXTTRAILSOURCE /u01/app/ogg/dirdat/aa
@@ -433,7 +449,7 @@
 4. 为 PUMP 进程 PORA_1 指定将本地 TRAIL 文件传输到目标端后保存成目标端 TRAIL 文件的名字
 
    ```
-   GGSCI (ogg1) 5> ADD RMTTRAIL /u01/app/ogg/dirdat/pa, EXTRACT PORA_1, MEGABYTES 5
+   GGSCI (ogg1) 5> ADD RMTTRAIL /u01/app/ogg/dirdat/pa, EXTRACT PORA_1, MEGABYTES 100
    RMTTRAIL added.
    ```
 
