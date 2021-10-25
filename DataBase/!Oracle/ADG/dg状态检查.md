@@ -1,25 +1,17 @@
-## 判断是否安装（只有企业版本有，xe版本没有）
+参考文档:http://www.zhaibibei.cn/dg/1.5/
 
-```
-SQL> select * from v$option where parameter = 'Oracle Data Guard';
+openmode
 
-PARAMETER							 VALUE
----------------------------------------------------------------- ----------------------------------------------------------------
-Oracle Data Guard						 TRUE
-```
-
-## openmode
-
-```
+```sql
 SQL> SELECT open_mode FROM V$DATABASE;
 OPEN_MODE
 --------------------
 READ ONLY WITH APPLY
 ```
 
-## 服务器角色
+服务器角色
 
-```
+```sql
 SQL> SELECT database_role FROM v$database;
 
 DATABASE_ROLE
@@ -27,39 +19,37 @@ DATABASE_ROLE
 PRIMARY
 ```
 
-## 强制记录日志
+查看 MAX(SEQUENCE)
 
-```
-SQL> select name,force_logging from v$database;
-
-NAME	  FOR
---------- ---
-PROD1	  YES
-
-SQL> 
+```sql
+select max(SEQUENCE#) from v$log;
 ```
 
-如果force_logging是NO
+主库log
 
-```
-SQL> alter database force logging;
-```
-
-## 查看自动备份备库文件
-
-```
-SQL> show parameter standby_file_management
-
-NAME				     TYPE	 VALUE
------------------------------------- ----------- ------------------------------
-standby_file_management 	     string	 AUTO
+```sql
+select thread#,group#,bytes from v$log;
 ```
 
-如果VALUE是MANUAL
+主库上查看日志传送情况
 
+```sql
+select dest_name,error from v$archive_dest where status='ERROR';
 ```
-SQL> alter system set standby_file_management='AUTO' scope=both;
+
+备库redo应用状态
+
+```sql
+select group#,dbid,status,bytes from v$standby_log;
 ```
+
+查看备库状态
+
+```sql
+SELECT PROCESS, STATUS, THREAD#, SEQUENCE#, BLOCK#, DELAY_MINS FROM V$MANAGED_STANDBY;
+```
+
+
 
 ## 监控 standby 配置是否成功
 
@@ -89,27 +79,11 @@ sql> select STATUS, GAP_STATUS from V$ARCHIVE_DEST_STATUS where DEST_ID = 2;
 
 如果一切正常，应该返回`VALID`和`NO GAP`.切记启用 redo 应用才能显示`No GAP`在主备库上执行
 
-## 主库上查看日志传送情况
 
-```
-sql> select dest_name,error from v$archive_dest where status='ERROR';
-```
 
 ## 查看dg状态
 
 ```
 sql> select * from V$DATAGUARD_STATUS order by TIMESTAMP;
-```
-
-查看备库状态
-
-```
-SELECT PROCESS, STATUS, THREAD#, SEQUENCE#, BLOCK#, DELAY_MINS FROM V$MANAGED_STANDBY;
-```
-
-## 查看 MAX(SEQUENCE)
-
-```
-sql> select max(SEQUENCE#) from v$log;
 ```
 
