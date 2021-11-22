@@ -45,8 +45,10 @@ tns_ora_dst=
       (SERVICE_NAME = ora_dst)
       (UR=A)
     )
-  )测试连接
+  )
 ```
+
+测试连接
 
 ```
 sqlplus sys/Password1@tns_ora_src as sysdba
@@ -77,7 +79,7 @@ sqlplus sys/Password1@tns_ora_dst as sysdba
    
    [log_archive_dest_1](https://docs.oracle.com/database/121/REFRN/GUID-10BD97BF-6295-4E85-A1A3-854E15E05A44.htm#REFRN10086)：主库的存档位置(通过`show parameter log_archive_dest_1`查看)、db_unique_name：主库名称
    
-   [log_archive_dest_state_2](https://docs.oracle.com/database/121/REFRN/GUID-983A9C52-3046-4286-AEA7-800741EE0561.htm#REFRN10087)：默认enable
+   [log_archive_dest_state_1](https://docs.oracle.com/database/121/REFRN/GUID-983A9C52-3046-4286-AEA7-800741EE0561.htm#REFRN10087)：默认enable
    
    ```sql
    SQL> alter system set log_archive_dest_1='location=/u01/app/oracle/oradata valid_for=(all_logfiles,all_roles) db_unique_name=ora_src' scope=both;
@@ -183,25 +185,25 @@ sqlplus sys/Password1@tns_ora_dst as sysdba
 主库执行（主库read write状态，备库nomount状态）
 
 ```bash
-[oracle@ora1 admin]$ rman target sys/password@tns_ora_src auxiliary sys/password@tns_ora_dst
+[oracle@ora1 admin]$ rman target sys/Password1@tns_ora_src auxiliary sys/Password1@tns_ora_dst
 connected to target database: ORACLE (DBID=1956275221)
 connected to auxiliary database: ORACLE (not mounted)
-
+rman target sys/password@tns_ora_src auxiliary sys/password@tns_ora_dst
 rman> DUPLICATE TARGET DATABASE FOR STANDBY FROM ACTIVE DATABASE NOFILENAMECHECK;
 ```
 
 备库执行
 
 ```sql
-SQL> select group#,bytes from v$standby_log;
-alter database add standby logfile thread 1 '/u01/app/oracle/oradata/redo1.log' size 50M;
-alter database add standby logfile thread 1 '/u01/app/oracle/oradata/redo2.log' size 50M;
-alter database add standby logfile thread 1 '/u01/app/oracle/oradata/redo3.log' size 50M;
-alter database add standby logfile thread 1 '/u01/app/oracle/oradata/redo4.log' size 50M;
-alter database add standby logfile thread 2 '/u01/app/oracle/oradata/redo5.log' size 50M;
-alter database add standby logfile thread 2 '/u01/app/oracle/oradata/redo6.log' size 50M;
-alter database add standby logfile thread 2 '/u01/app/oracle/oradata/redo7.log' size 50M;
-alter database add standby logfile thread 2 '/u01/app/oracle/oradata/redo8.log' size 50M;
+SQL> select group#,status from v$standby_log;
+alter database add standby logfile thread 1 group 1('/u01/app/oracle/oradata/redo1.log') size 200M;
+alter database add standby logfile thread 1 group 2('/u01/app/oracle/oradata/redo2.log') size 200M; 
+alter database add standby logfile thread 1 group 3('/u01/app/oracle/oradata/redo3.log') size 200M; 
+alter database add standby logfile thread 1 group 4('/u01/app/oracle/oradata/redo4.log') size 200M; 
+alter database add standby logfile thread 1 group 5('/u01/app/oracle/oradata/redo5.log') size 200M; 
+alter database add standby logfile thread 1 group 6('/u01/app/oracle/oradata/redo6.log') size 200M; 
+alter database add standby logfile thread 1 group 7('/u01/app/oracle/oradata/redo7.log') size 200M; 
+alter database add standby logfile thread 1 group 8('/u01/app/oracle/oradata/redo8.log') size 200M; 
 ```
 
 实时应用，备库开启至open状态
@@ -231,4 +233,22 @@ SQL> select max(sequence#) from v$log;
 -- 12c,不要使用archive log list查看(Doc ID 2041137.1)
 SQL> select max(sequence#) from v$archived_log;
 ```
+
+
+
+
+
+---
+
+参考文档：
+
+[Oracle Data Guard核心参数](https://mp.weixin.qq.com/s/m1S-ElWOYf_h2kcrre5HNA)
+
+[DataGuard原理](https://www.modb.pro/db/37720)
+
+[Oracle Database 12c Initialization Parameters](https://docs.oracle.com/database/121/REFRN/GUID-10BD97BF-6295-4E85-A1A3-854E15E05A44.htm#REFRN10086)
+
+[Oracle 12C Active Data Guard Real-Time Data Protection and Availability](https://www.oracle.com/technetwork/database/availability/active-data-guard-wp-12c-1896127.pdf)
+
+[Oracle Data Guard web](https://docs.oracle.com/database/121/HABPT/config_dg.htm#HABPT4876)
 

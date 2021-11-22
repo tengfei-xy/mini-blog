@@ -1,16 +1,13 @@
 # Windows server 2012 启动ogg错误
 
-Q：启动时如果报错缺少msvcp140.dll
 
-A：安装[vc++2015 64位](https://download.microsoft.com/download/2/E/6/2E61CFA4-993B-4DD4-91DA-3737CD5CD6E3/vcredist_x64.exe)运行库
-
----
 
 Q：启动时如果报错缺少msvcp140.dll
 
 A：安装[vc++2015 64位](https://download.microsoft.com/download/2/E/6/2E61CFA4-993B-4DD4-91DA-3737CD5CD6E3/vcredist_x64.exe)运行库
 
----
+
+
 
 Q：安装vc++2015报错
 
@@ -34,7 +31,5 @@ A：查看报错日志，可发现安装Windows8.1-KB2999226-x64.msu时出错。
 
    [Windows8.1-KB2959977-x64.msu](https://download.microsoft.com/download/2/5/6/256CCCFB-5341-4A8D-A277-8A81B21A1E35/Windows8.1-KB2959977-x64.msu)
 
-3. 安装完成后，需要重起，这个安装过程根据你的硬件配置和网络决定安装速度。
-
----
+3. 安装完成后，需要重启主机，这个安装速度过程根据硬件配置和网络。
 

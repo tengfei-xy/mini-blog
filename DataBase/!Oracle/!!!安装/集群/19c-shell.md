@@ -1,36 +1,101 @@
-[GitHub-InstallOracleShell](https://github.com/pc-study/InstallOracleshell)
+# Centos7 shell安装19c rac
 
-[README](https://github.com/pc-study/InstallOracleshell/blob/main/ParameterREADME.md)
+注：如果你没有成功手动部署过rac，请出门左转
 
-```bash
-i=192.168.119.131 # node1 Public ip
-n=ora             # rac hostname
-c=true            # 判断是否为CDB模式
-pb=rac            # 创建PDB的名称
-o=rac 	          # oraclesid
-rs=tengfei        # root password
-op=oracle         # oracle password
-gp=grid           # grid password
-b=/u01/app			  # install basedir
-s=AL32UTF8			  # characterset
-ns=UTF8           # national characterset
-pb1=$i            # node public ip
-pb2=192.168.119.132 # node public ip
-vi1=192.168.119.133 # node virtual ip
-vi2=192.168.119.134 # node virtual ip
-pi1=192.168.207.133 # node private ip
-pi2=192.168.207.136 # node private ip
-si=192.168.119.135  # scan ip
-od="/dev/sdc,/dev/sde,/dev/sdf" # asm ocr disk
-dd="/dev/sdd"     # asm data disk
-on=OCR            # asm ocr diskgroupname
-dn=DATA           # asm data diskgroupname
-or=NORMAL         # asm ocr redundancy
-dr=EXTERNAL       # asm data redundancy
-puf=ens33         # 主机的访问IP对应的网卡名称
-prf=ens36         # 主机的私有IP对应的网卡名称
-./OracleShellInstall.sh -i $i -n $n -c $c -pb $pb -o $o -rs $rs -op $op -gp $gp -b $b -s $s -ns $ns -pb1 $pb1 -pb2 $pb2 -vi1 $vi1 -vi2 $vi2 -pi1 $pi1 -pi2 $pi2 -si $si -od $od -dd $dd -on $on -dn $dn -or $or -dr $dr -puf $puf -prf $prf
+## 参考文档
+
+本文使用的OracleShellInstall.sh在[百度云Database/oracle/shell](https://pan.baidu.com/s/1KEb2QFoM4rlNHJOq1ljSTQ)（提取码:cebv）的md5为
 
 ```
+724e79ce664dae7dcac56684dee07bc0
+```
 
-> 1. 安装脚本的multipath.conf默认devonode /dev/sda（1602行左右），建议去除，因为当根目录使用/dev/vda时，iscsi的共享磁盘就会从sda开始
+
+
+## 环境准备
+
+双节点（Centos7.6），每个节点需要
+
+1. 有两张网卡（作为公网IP和私网IP）
+2. 共享盘就绪
+3. CD系统盘连接
+
+
+
+## 脚本使用步骤
+
+安装依赖包
+
+```
+yum -y -q install bc gcc gcc-c++  binutils  make gdb cmake  glibc ksh elfutils-libelf elfutils-libelf-devel fontconfig-devel glibc-devel libaio libXrender libXrender-devel libX11 libXau sysstat libXi libXtst libgcc librdmacm-devel libstdc++ libstdc++-devel libxcb net-tools nfs-utils compat-libcap1 smartmontools  targetcli python python-configshell python-rtslib python-six  unixODBC unixODBC-devel iscsi-initiator-utils unbound bind-utils kde-l10n-Chinese.noarch xclock lsof expect unzip redhat-lsb telnep ntsysv strace dos2unix ncurses-devel
+```
+
+以及额外依赖包
+
+```
+compat-libstdc++-33-3.2.3-72.el7.x86_64.rpm
+libaio-devel-0.3.109-13.el7.x86_64.rpm
+```
+
+定义初始化变量（三个表决盘、一个数据盘的非CDB模式的参数）
+
+```bash
+i=172.16.83.130     # node1 Public ip(本机执行脚本的IP)
+n=ora               # rac hostname prefix
+c=true              # 判断是否为CDB模式
+pb=rac              # 创建PDB的名称
+o=rac 	            # oraclesid
+rs=tengfei          # root password
+op=oracle           # oracle password
+gp=grid             # grid password
+b=/u01/app			    # install basedir
+s=AL32UTF8          # characterset
+ns=UTF8             # national characterset
+pb1=$i              # node1 public ip
+pb2=172.16.83.131   # node2 public ip
+vi1=172.16.83.132   # node1 virtual ip
+vi2=172.16.83.133   # node2 virtual ip
+pi1=192.168.207.133 # node1 private ip
+pi2=192.168.207.149 # node2 private ip
+si=172.16.83.134    # scan ip
+od="/dev/sdc,/dev/sde,/dev/sdf" # asm ocr disk
+dd="/dev/sdd"       # asm data disk
+on=OCR              # asm ocr diskgroupname
+dn=DATA             # asm data diskgroupname
+or=NORMAL           # asm ocr redundancy
+dr=EXTERNAL         # asm data redundancy
+puf=ens33           # 主机的公网IP对应的网卡名称
+prf=ens36           # 主机的私有IP对应的网卡名称
+```
+
+执行脚本
+
+```bash
+./OracleShellInstall.sh -i $i -n $n -c $c -pb $pb -o $o -rs $rs -op $op -gp $gp -b $b -s $s -ns $ns -pb1 $pb1 -pb2 $pb2 -vi1 $vi1 -vi2 $vi2 -pi1 $pi1 -pi2 $pi2 -si $si -od $od -dd $dd -on $on -dn $dn -or $or -dr $dr -puf $puf -prf $prf
+```
+
+
+
+## 问题列表
+
+- gi、oracle的安装包和OracleShellInstall.sh放在/soft或/tmp下，请勿放到root下
+
+- yum和rpm可以先手动执行，因为本地镜像挂载失败将继续执行脚本
+
+- 安装包真实存在,但提示找不到包时
+
+  ```
+  rm -rf /u01
+  ```
+
+- 安装脚本的multipath.conf默认包含`devonode /dev/sda`（在1602行左右），特殊情况下建议去除，因为当根目录挂载于/dev/vda时，iscsi的共享磁盘就会从sda开始
+
+- gi安装失败是因ocr或data的初始参数设置错误时，需要删除如下内容，调整初始参数后重新执行脚本
+
+  ```
+  rm -f /etc/udev/rules.d/99-oracle-asmdevices.rules
+  rm -f /etc/multipath.conf
+  rm -rf /u01
+  ```
+
+  

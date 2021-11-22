@@ -1,16 +1,16 @@
-**镜像下载命令**
+镜像下载
 
 ```bash
 docker pull shihd/gbase8a:1.0 
 ```
 
-**镜像运行命令**
+镜像运行
 
 ```bash
 docker run --name gbase -it -p5258:5258 shihd/gbase8a:1.0
 ```
 
-**镜像作为后台进程运行命令**
+镜像作为后台进程运行
 
 ```
 docker run --name gbase -d -p5258:5258 shihd/gbase8a:1.0

@@ -26,6 +26,7 @@ SQL>SELECT NAME FROM V$ARCHIVED_LOG WHERE THREAD#=1 AND DEST_ID=1 AND SEQUENCE# 
 SQL> alter database register logfile '/other/arc/1_121958_902679684.dbf';
 ```
 
-# rman scan增量恢复
+# rman scn增量恢复
 
 [参考文档](https://www.modb.pro/db/37751)
+
