@@ -40,24 +40,24 @@ libaio-devel-0.3.109-13.el7.x86_64.rpm
 定义初始化变量（三个表决盘、一个数据盘的非CDB模式的参数）
 
 ```bash
-i=172.16.83.130     # node1 Public ip(本机执行脚本的IP)
+i=172.16.83.2     # node1 Public ip(本机执行脚本的IP)
 n=ora               # rac hostname prefix
 c=true              # 判断是否为CDB模式
 pb=rac              # 创建PDB的名称
 o=rac 	            # oraclesid
-rs=tengfei          # root password
+rs=bb123456          # root password
 op=oracle           # oracle password
 gp=grid             # grid password
 b=/u01/app			    # install basedir
 s=AL32UTF8          # characterset
 ns=UTF8             # national characterset
 pb1=$i              # node1 public ip
-pb2=172.16.83.131   # node2 public ip
-vi1=172.16.83.132   # node1 virtual ip
-vi2=172.16.83.133   # node2 virtual ip
-pi1=192.168.207.133 # node1 private ip
-pi2=192.168.207.149 # node2 private ip
-si=172.16.83.134    # scan ip
+pb2=172.16.83.3   # node2 public ip
+vi1=172.16.83.4   # node1 virtual ip
+vi2=172.16.83.5   # node2 virtual ip
+pi1=192.168.207.2 # node1 private ip
+pi2=192.168.207.3 # node2 private ip
+si=172.16.83.6    # scan ip
 od="/dev/sdc,/dev/sde,/dev/sdf" # asm ocr disk
 dd="/dev/sdd"       # asm data disk
 on=OCR              # asm ocr diskgroupname
@@ -65,7 +65,7 @@ dn=DATA             # asm data diskgroupname
 or=NORMAL           # asm ocr redundancy
 dr=EXTERNAL         # asm data redundancy
 puf=ens33           # 主机的公网IP对应的网卡名称
-prf=ens36           # 主机的私有IP对应的网卡名称
+prf=ens34           # 主机的私有IP对应的网卡名称
 iso=y               # 配置yum源
 ```
 

@@ -117,6 +117,7 @@ sqlplus sys/Password1@tns_ora_dst as sysdba
    
    ```sql
    alter system set standby_file_management=auto scope=both;
+   -- alter system set standby_file_management=manual scope=both;
    ```
    
 2. 主库重启

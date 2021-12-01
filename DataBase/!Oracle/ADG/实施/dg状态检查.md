@@ -8,7 +8,8 @@ SELECT database_role FROM v$database;
 
 ```sql
 select max(SEQUENCE#) from v$log;
-select max(SEQUENCE#) from v$archived_log;
+select max(SEQUENCE#) from v$archived_log
+select name,SEQUENCE# from v$archived_log;
 ```
 
 查看日志传送情况
@@ -54,5 +55,11 @@ select protection_mode,protection_level from v$database;
 
 ```
 select GROUP#,status from v$log;
+```
+
+查看备库的延时
+
+```bash
+select value from v$dataguard_stats where name='apply lag';
 ```
 
