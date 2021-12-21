@@ -12,6 +12,12 @@ select max(SEQUENCE#) from v$archived_log
 select name,SEQUENCE# from v$archived_log;
 ```
 
+备库端检测应用成功的最大日志序列
+
+```sql
+select max(sequence#) from v$archived_log where applied = 'YES';
+```
+
 查看日志传送情况
 
 ```sql
@@ -61,5 +67,23 @@ select GROUP#,status from v$log;
 
 ```bash
 select value from v$dataguard_stats where name='apply lag';
+```
+
+备库日志接收日志以及应用日志检查
+
+```
+select thread#, sequence#,'Last Applied : ' Logs,to_char(next_time, 'DD-MON-YYYY:HH24:MI:SS') Time from v$archived_log
+where sequence# =
+(select max(sequence#) from v$archived_log where
+ applied = 'YES' )
+union select thread#,sequence#,'Last Received : ' Logs,
+to_char(next_time, 'DD-MON-YYYY:HH24:MI:SS') Time from v$archived_log
+where sequence# = (select max(sequence#) from v$archived_log);
+```
+
+备库日志传送以及应用消息
+
+```sql
+SELECT MESSAGE,TIMESTAMP FROM V$DATAGUARD_STATUS;
 ```
 

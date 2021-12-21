@@ -1,10 +1,26 @@
 # chrome
 
-## 屏幕截图
+屏幕截图
 
-`"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --window-size=1920,4000 --enable-logging --headless  --screenshot=.\baidu.com.jpg www.baidu.com `
+```
+chrome.exe --window-size=1920,4000 --enable-logging --headless  --screenshot=.\baidu.com.jpg www.baidu.com
+```
 
-## 下载(64位)
+浏览器位置
+
+- mac
+
+  ```bash
+  cd "/Users/melta/Library/Application Support/Google/Chrome/Default/Extensions"
+  ```
+
+- windows
+
+  ```
+  C:\Users\用户名\AppData\Local\Google\Chrome\User Data\Default\Extensions
+  ```
+
+下载(64位)
 
 [windows](https://www.chromedownloads.net/chrome64win-stable/list_2_1.html)
 

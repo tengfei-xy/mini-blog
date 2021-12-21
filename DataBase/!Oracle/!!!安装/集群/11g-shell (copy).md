@@ -2,9 +2,11 @@
 
 注：如果你没有成功手动部署过rac，请出门左转
 
+注：资源获取可联系微信：Melta_
+
 ## 参考文档
 
-本文使用的OracleShellInstall.sh在[百度云Database/oracle/shell](https://pan.baidu.com/s/1KEb2QFoM4rlNHJOq1ljSTQ)（提取码:cebv）的md5为
+本文使用的OracleShellInstall.sh的md5为
 
 ```
 6f1b731204f71a18b00263214385f60d

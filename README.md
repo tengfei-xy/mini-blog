@@ -28,17 +28,6 @@
 
 
 
-## 共享资源
-
-| 百度云链接                                                   | 提取码 | 备注                       |
-| ------------------------------------------------------------ | ------ | -------------------------- |
-| [Linux的镜像](https://pan.baidu.com/s/1jlZSa_w386cSGsP4dL0mRg) | ps9j   | 以Centos、RHEL为主         |
-| [Windows的镜像](https://pan.baidu.com/s/1YXqZH2H6kldUEOx2wvD9Vw) | bg4l   | 包含桌面和服务器的操作系统 |
-| [Mac的Adobe](https://pan.baidu.com/s/1wxLjWBthXSETsinwBwrVyA) | f84u   | 2020版的Adobe断网安装      |
-| [DATABASE](https://pan.baidu.com/s/1KEb2QFoM4rlNHJOq1ljSTQ ) | cebv   | Oracle资源较多             |
-
-
-
 ## 关于作者
 
 作者微信：Melta_   （如果你对文章有疑问，请备注mini-blog）

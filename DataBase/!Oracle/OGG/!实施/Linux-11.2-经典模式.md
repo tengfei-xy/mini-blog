@@ -1,6 +1,4 @@
-文档使用资源：[百度网盘](https://pan.baidu.com/s/1KEb2QFoM4rlNHJOq1ljSTQ)，提取码: cebv 
-
-文档作者微信：Melta_
+文档作者微信：Melta_（可联系获取安装包资源）
 
 文档更新时间：2021年11月3日
 
@@ -499,7 +497,7 @@
 1. 添加进程
 
    ```
-   GGSCI (ogg2) 1>  ADD REPLICAT RORA_1, exttrail /u01/app/ogg/dirdat/pa, checkpointtable ogg.ggschkpt
+   GGSCI (ogg2) 1>  ADD REPLICAT RRA_1, exttrail /u01/app/ogg/dirdat/pa, checkpointtable ogg.ggschkpt
    REPLICAT added.
    ```
 
