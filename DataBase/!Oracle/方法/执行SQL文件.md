@@ -1,1 +1,0 @@
-   SQL> @/home/oracle/test.sql;

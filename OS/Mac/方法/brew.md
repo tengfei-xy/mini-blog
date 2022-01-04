@@ -1,12 +1,20 @@
-## 安装
+# 安装
 
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
+# 代理
+
+编辑~/.curlrc
+
+```
+socks5 = "127.0.0.1:1080"
+```
 
 
-## 换源
+
+# 换源
 
 - 清华源(本人在用)
 
