@@ -213,7 +213,7 @@ alter database add standby logfile thread 1 group 8('/u01/app/oracle/oradata/red
 SQL> alter database recover managed standby database using current logfile disconnect from session;
 SQL> alter database recover managed standby database cancel;
 SQL> alter database open read only;
-SQL> alter database recover managed standby database using current logfile disconnect from session;
+SQL> x
 ```
 
 此时可以插入数据，查看是否同步
