@@ -16,7 +16,7 @@
 
 [Serivce](https://github.com/tengfei-xy/mini-blog/tree/master/Services)是**服务**类的程序，通常需要IP监听、在网络上发挥某种作用的程序，如nginx等
 
-[Topic](https://github.com/tengfei-xy/mini-blog/tree/master/Topic)是作者感兴趣的**除计算机以外的主题**
+[World](https://github.com/tengfei-xy/mini-blog/tree/master/Topic)是作者感兴趣的**除计算机以外的主题**
 
 
 
