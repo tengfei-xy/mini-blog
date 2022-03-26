@@ -113,7 +113,7 @@ sqlplus sys/Password1@tns_ora_dst as sysdba
    SQL> alter system set log_file_name_convert='/u01/app/oracle/oradata','/u01/app/oracle/oradata' scope=spfile;
    ```
    
-   [standby_file_management](https://docs.oracle.com/database/121/REFRN/GUID-BD652D33-31C7-47C9-8019-7A4B79A9D974.htm#REFRN10212)：设置为auto可以自动管理表空间文件，设置为manual需要手动删除
+   [standby_file_management](https://docs.oracle.com/database/121/REFRN/GUID-BD652D33-31C7-47C9-8019-7A4B79A9D974.htm#REFRN10212)：设置为auto可以自动管理standby file文件，设置为manual需要手动删除
    
    ```sql
    alter system set standby_file_management=auto scope=both;
@@ -213,7 +213,6 @@ alter database add standby logfile thread 1 group 8('/u01/app/oracle/oradata/red
 SQL> alter database recover managed standby database using current logfile disconnect from session;
 SQL> alter database recover managed standby database cancel;
 SQL> alter database open read only;
-SQL> x
 ```
 
 此时可以插入数据，查看是否同步

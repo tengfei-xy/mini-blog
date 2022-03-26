@@ -1,6 +1,10 @@
-```shell
-vi /etc/yum.conf
+编辑/etc/yum.conf
 
-proxy=http://192.168.1.1:8080
+```shell
+# http
+proxy=http://192.168.1.1:41091
+# https
+proxy=https://192.168.1.1:41091
 ```
 
+完成后，立刻刷新

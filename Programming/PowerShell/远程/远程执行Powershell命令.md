@@ -1,6 +1,5 @@
-# 远程执行PowerShell命令
+单个ip 执行命令
 
-## 单个ip 执行命令
 ```powershell
 $iplist = Get-Content C:\Users\tengfei\Desktop\ip.txt
 
@@ -11,21 +10,24 @@ Invoke-Command -ComputerName $ip -ScriptBlock { }
 } 
 ```
 
-
-
-## 批量ip执行命令
+批量ip执行命令
 
 ```powershell
-`Invoke-Command -ComputerName (Get-Content C:\Users\tengfei\Desktop\ip.txt) -ScriptBlock { (write-Host $env:computername) -add  ()}`
+Invoke-Command -ComputerName (Get-Content C:\Users\tengfei\Desktop\ip.txt) -ScriptBlock { (write-Host $env:computername) -add  ()}
 
 
 Invoke-Command -ComputerName (Get-Content C:\Users\tengfei\Desktop\ip.txt) -ScriptBlock {Get-Volume  -add  write-Host $env:computername}
 ```
 
-## 执行本地脚本
+执行本地脚本
 
-`Invoke-Command -ComputerName tech135-pc -filepath ./test.ps1 `
+```powershell
+Invoke-Command -ComputerName tech135-pc -filepath ./test.ps1
+```
 
-## 执行本地脚本附加参数
+执行本地脚本附加参数
 
-`Invoke-Command -ComputerName tech135-pc -filepath ./test.ps1 -ArgumentList 233 `
+```powershell
+Invoke-Command -ComputerName tech135-pc -filepath ./test.ps1 -ArgumentList 233
+```
+

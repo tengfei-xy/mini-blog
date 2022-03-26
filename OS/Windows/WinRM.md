@@ -16,5 +16,9 @@
 
 ## 查看配置
 
-`winrm get winrm/config`
+```bash
+winrm get winrm/config
+```
+
+
 

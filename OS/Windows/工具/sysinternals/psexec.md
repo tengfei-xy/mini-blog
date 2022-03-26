@@ -4,19 +4,31 @@
 
 注：绝大多数情况都需要启动ADMIN$共享,查看方式:`net share`
 
-## 交互式：在远程主机上运行本地程序
 
-**命令：**`psexec \\tx16-pc -s -d -i 1 -c H:\windows\share\FFCell.exe`
 
-**解释：**在tx16-pc的Session 1上以管理员权限运行本地的FFCell.exe，并立刻返回。
 
-**场景：**用户需要启动具有图形化界面的程序。并且文件在命令执行者的电脑上。
+
+执行远程主机的文件，在tx16-pc的Session 1上以管理员权限运行本地的FFCell.exe，并立刻返回。
+
+```
+psexec \\NB-JL-014-PC -s -d -i 1 -c H:\windows\share\FFCell.exe
+```
+
+将本地主机的文件复制到远程主机再运行
+
+```
+psexec \\NB-JL-014-PC -nobanner -s -f -c C:\Users\Administrator\Desktop\bat\computer\updateIP.bat
+```
 
 
 
 ## 说明
 
- `psexec [\\computer[,computer2[,...] | @file\]][-u user [-p psswd][-n s][-r servicename][-h][-l][-s|-e][-x][-i [session]][-c executable [-f|-v]][-w directory][-d][-<priority>][-a n,n,...] cmd [arguments]`
+ ```
+ psexec [\\computer[,computer2[,...] | @file\]][-u user [-p psswd][-n s][-r servicename][-h][-l][-s|-e][-x][-i [session]][-c executable [-f|-v]][-w directory][-d][-<priority>][-a n,n,...] cmd [arguments]
+ ```
+
+
 
 | Parameter       | Description                                                  |
 | :-------------- | :----------------------------------------------------------- |
