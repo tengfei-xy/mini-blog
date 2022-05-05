@@ -1,10 +1,24 @@
-# GOPROXY
+# windows
 
-## cmd
+```
+set GOPROXY=https://mirrors.aliyun.com/goproxy/
+set GOPROXY=https://mirrors.aliyun.com/goproxy/
+```
 
-`set GOPROXY=https://mirrors.aliyun.com/goproxy/`
+使用socks5代理
 
-## linux/mac
+```
+set http_proxy=socks5://192.168.0.4:1091
+set https_proxy=socks5://192.168.0.4:1091
+```
 
-`export GOPROXY=https://mirrors.aliyun.com/goproxy/`
+
+
+# linux/mac
+
+```
+export GOPROXY=https://mirrors.aliyun.com/goproxy/
+```
+
+
 

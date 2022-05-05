@@ -12,9 +12,23 @@ netsh interface show interface
 netsh i s i
 ```
 
+## ip
+
+修改IP
+
+```
+netsh interface ipv4 set address "以太网 2" static 192.168.1.98 255.255.255.0 192.168.1.1
+```
+
+查看是否启动DHCP，其中7为网卡索引
+
+```
+netsh i i sh a 7
+```
 
 
-## 例
+
+## DNS
 
 修改主要DNS
 
@@ -25,22 +39,41 @@ netsh interface ip set dns "本地连接" static 172.16.41.130 primary
 添加次要DNS
 
 ```
-netsh interface ip add dnsservers "666" 8.8.8.8 index=2
+netsh interface ip add dnsservers "本地连接" 8.8.8.8 index=2
 ```
 
-修改IP
+## 网卡
 
-```
-netsh interface ipv4 set address "以太网 2" static 192.168.1.98 255.255.255.0 192.168.1.1
-```
-
-查看正在使用的interface接口
+查看正在使用的接口
 
 ```
 netsh interface show interface
+netsh i sh i
 ```
 
-查看winhttpd代理，系统代理可能会造成winhttp也被设置，但其实有区别，[winhttp代理相关论坛](https://social.technet.microsoft.com/Forums/windows/en-US/baf4f5bf-1214-4348-8dea-201dcafd488c/the-winrm-client-received-an-http-status-code-of-502-from-the-remote-wsmanagement-service?forum=exchange2010)
+查看被禁用的接口
+
+```
+netsh i sh i
+```
+
+启用（e表示admin=enabeld）
+
+```
+netsh i se i "网卡名" e
+```
+
+禁用网卡（d表示admin=disabled）
+
+```
+netsh i se i "网卡名" d
+```
+
+
+
+## winhttp
+
+查看winhttp代理，系统代理可能会造成winhttp也被设置，但其实有区别，[winhttp代理相关论坛](https://social.technet.microsoft.com/Forums/windows/en-US/baf4f5bf-1214-4348-8dea-201dcafd488c/the-winrm-client-received-an-http-status-code-of-502-from-the-remote-wsmanagement-service?forum=exchange2010)
 
 ```bash
  netsh winhttp show proxy
@@ -50,5 +83,17 @@ netsh interface show interface
 
 ```bash
  netsh winhttp reset proxy
+```
+
+添加http代理
+
+```
+netsh winhttp set proxy 127.0.0.1:51630
+```
+
+## 有效名称策略表
+
+```
+netsh name sh effectivepolicy
 ```
 

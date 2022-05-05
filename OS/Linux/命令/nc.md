@@ -34,7 +34,7 @@ nc -c "echo 233" 192.168.245.37
 
 ```bash
 [root@localhost ~]# nc -h
-Ncat 7.50 ( https://nmap.org/ncat )
+Ncat 7.50
 Usage: ncat [options] [hostname] [port]
 
 Options taking a time assume seconds. Append 'ms' for milliseconds,

@@ -51,9 +51,27 @@ firewall-cmd --new-zone=<zone>
 firewall-cmd --set-default-zone=aliyun
 ```
 
-针对具体ip和端口
+添加富规则针对单个ip和端口（如果有个IP或端口需要重复使用命令）
 
 ```bash
+# 单个IP和单个端口
 firewall-cmd --permanent --add-rich="rule family="ipv4" source address="183.135.155.40" port protocol="tcp" port="3306" accept"
+# 单个IP和多个端口
+firewall-cmd --permanent --add-rich-rule="rule family="ipv4" source address="20.115.226.155" port protocol="tcp" port="1-65535" accept"
+firewall-cmd --permanent --add-rich-rule="rule family="ipv4" source address="10.77.12.4/22" port protocol="tcp" port="50001" accept"
+firewall-cmd --reload
+```
+
+删除富规则
+
+```bash
+firewall-cmd --permanent --remove-rich="rule family="ipv4" source address="183.135.155.40" port protocol="tcp" port="50001" accept"
+firewall-cmd --reload
+```
+
+查看富规则
+
+```bash
+firewall-cmd --permanent --list-rich
 ```
 

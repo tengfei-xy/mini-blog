@@ -2,9 +2,9 @@
 
 ```shell
 # http
-proxy=http://192.168.1.1:41091
+proxy=http://192.168.0.197:41091
 # https
-proxy=https://192.168.1.1:41091
+proxy=https://192.168.0.197:41091
 ```
 
 完成后，立刻刷新
