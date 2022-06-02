@@ -1,4 +1,8 @@
 # pbcopy
 
-`echo A | pbcopy`
+```
+echo A | pbcopy
+```
+
+
 
