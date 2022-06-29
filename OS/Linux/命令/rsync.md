@@ -12,4 +12,4 @@
 
 ## windows 本地备份
 
-`rsync -a /cygdrive/C/Users/taotengfei.ZHIWEIREACH /cygdrive/D/DomainUserBackupV5/%username%"`
+`rsync -a /cygdrive/C/Users/administrator /cygdrive/D/DomainUserBackupV5/%username%"`

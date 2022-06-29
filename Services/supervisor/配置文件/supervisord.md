@@ -31,13 +31,13 @@ serverurl=unix:///tmp/supervisor.sock ; use a unix:// URL  for a unix socket
 files = /usr/local/supervisord/files/*.ini
 ```
 
-# 实用配置（nbzhiwei）
+# 实用配置（monster）
 
 ```ini
 [unix_http_server]
 file=/tmp/supervisor.sock   ; the path to the socket file
 #chmod=0700                 ; socket file mode (default 0700)
-chown=nbzhiwei:nbzhiwei       ; socket file uid:gid owner
+chown=monster:monster       ; socket file uid:gid owner
 username=devops              ; default is no username (open server)
 password=devops123               ; default is no password (open server)
 
@@ -56,7 +56,7 @@ nodaemon=false               ; start in foreground if true; default false
 minfds=1024                  ; min. avail startup file descriptors; default 1024
 minprocs=200                 ; min. avail process descriptors;default 200
 ;umask=022                   ; process file creation umask; default 022
-user=nbzhiwei                    ; default is current user, required if root
+user=monster                    ; default is current user, required if root
 
 [rpcinterface:supervisor]
 supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface
@@ -109,7 +109,7 @@ nodaemon=false               ; start in foreground if true; default false
 minfds=1024                  ; min. avail startup file descriptors; default 1024
 minprocs=200                 ; min. avail process descriptors;default 200
 ;umask=022                   ; process file creation umask; default 022
-user=nbzhiwei                    ; default is current user, required if root
+user=monster                    ; default is current user, required if root
 ;identifier=supervisor       ; supervisord identifier, default is 'supervisor'
 ;directory=/tmp              ; default is not to cd during start
 ;nocleanup=true              ; don't clean up tempfiles at start; default false

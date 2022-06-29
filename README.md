@@ -8,6 +8,8 @@
 
 [Application](https://github.com/tengfei-xy/mini-blog/tree/master/Application)是**应用程序**方面的小技巧内容，如chrome、vscode等。
 
+[Boom](https://github.com/tengfei-xy/mini-blog/tree/master/Boom)是记录各种破解软件的方法步骤或概念。
+
 [Database](https://github.com/tengfei-xy/mini-blog/tree/master/DataBase)是**数据库**方面的内容，Oracle记录较多，各个数据库均记录了搭建方法，并没有深入太多。
 
 [OS](https://github.com/tengfei-xy/mini-blog/tree/master/OS)是**操作系统**方面的内容，Linux/Centos记录较多，Mac中有些小技巧，Windows以server为主。
@@ -32,8 +34,8 @@
 
 作者微信：Melta_   （如果你对文章有疑问，请备注mini-blog）
 
-1. 作者日常使用mac系统，做过数据库以及系统管理员、运维工程师、桌面运维方面的工作
+1. 作者日常使用mac系统，做过数据库、系统及网络管理员、运维工程师等方面的工作
 
-2. 基于第1点，文章内容均有工作的内容有关，工作经验和记录文档二年半左右罢了
+2. 基于第1点，文章内容均有工作的内容有关，工作经验和记录文档
 
    

@@ -10,7 +10,7 @@ go get gopkg.in/yaml.v3
 
 ```yaml
 basic:
- sendemail: "taotengfei@zhiweidata.com"
+ sendemail: "monster@163.com"
 mysql:
  ip: "127.0.0.1"
  enbaledip: flase

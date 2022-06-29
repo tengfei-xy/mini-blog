@@ -1,5 +1,5 @@
 # msiexec
-msiexec /i \\adserver\msi\puppet-agent-6.8.0-x64.msi /quiet /norestart /l\* desktop/log2.log PUPPET\_MASTER\_SERVER=puppet.zhiweireach.com
+msiexec /i \\adserver\msi\puppet-agent-6.8.0-x64.msi /quiet /norestart /l\* desktop/log2.log PUPPET\_MASTER\_SERVER=puppet.monster.com
 
 
 ## 格式
