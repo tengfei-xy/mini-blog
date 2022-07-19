@@ -1,0 +1,41 @@
+```golang
+qrcode_png := fmt.Sprintf("qrcode%d.png", i)
+	if err := pub.DownlaodFileOutSide(qrcode_url, fmt.Sprintf(`%s\%s`, pub.Dir_tmp, qrcode_png)); err != nil {
+		pub.LOG(ERROR, "获取二维码失败", err)
+		go Msg("获取二维码失败")
+		return
+	}
+	// 删除文件
+	// ImageView 的路径应基于SetRootDirPath()的相对路径。
+	walk.Resources.SetRootDirPath(pub.Dir_tmp)
+
+	if _, err := (MainWindow{
+		Title:  "233",
+		Size:   Size{Width: 400, Height: 500},
+		Layout: Grid{Columns: 2},
+		Children: []Widget{
+			VSplitter{
+				Children: []Widget{
+					GroupBox{
+						Layout: VBox{},
+						Children: []Widget{
+							ImageView{
+								Image:  qrcode_png,
+								Margin: 10,
+								Mode:   ImageViewModeZoom,
+							},
+							Label{
+								Text: "登录",
+							},
+						},
+					},
+				},
+			},
+		},
+	}.Run()); err != nil {
+		fmt.Println(err)
+		pub.LOG(ERROR, "", err)
+	}
+i++
+```
+

@@ -2,7 +2,7 @@
 1. 指定路径
 
 2. 指定 php监听地址
-具体的 nginx.conf 配置方法
+   具体的 nginx.conf 配置方法
 
    location ~ \.php$ {
             root /usr/local/php/www/html;
