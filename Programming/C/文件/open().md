@@ -10,6 +10,14 @@ int open(const char *path, int oflags, mode_t mode);
 
 # oflags
 
+头文件
+
+```c
+#include <fcntl.h>
+```
+
+可选值
+
 | 模式     | 说明 |
 | -------- | ---- |
 | O_RDONLY | 只读 |
@@ -18,7 +26,13 @@ int open(const char *path, int oflags, mode_t mode);
 
 # mode
 
-定义在sys/stat.h
+头文件
+
+```c
+#include <sys/stat.h>
+```
+
+可选值
 
 | 模式    | 说明               |
 | ------- | ------------------ |
