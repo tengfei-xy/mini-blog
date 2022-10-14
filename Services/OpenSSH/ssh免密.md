@@ -21,7 +21,7 @@
 
 
 
-免交互
+免交互命令
 
 ```
 ssh-keygen -t rsa -P \"\" -f /home/oracle/.ssh/id_rsa

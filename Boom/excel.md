@@ -11,7 +11,7 @@
 下载office2john.py
 
 ```
-https://github.com/magnumripper/JohnTheRipper/blob/bleeding-jumbo/run/office2john.py
+wget https://raw.githubusercontent.com/openwall/john/bleeding-jumbo/run/office2john.py
 ```
 
 在python环境下执行下列语句
@@ -41,7 +41,7 @@ $office$*2007*20*128*16*96a52ba932667e90695f73bbc4f7dcd6*462d3fcf8c89eab60ec4205
 https://hashcat.net/hashcat/
 
 # hashcat-6.2.5-windows
-https://hashcat.net/files/hashcat-6.2.5.7z
+https://hashcat.net/files/hashcat-6.2.6.7z
 ```
 
 根据上方哈希类型得到-m的参数（可以根据`.\hashget --help`来查看）
@@ -72,7 +72,7 @@ https://registrationcenter-download.intel.com/akdlm/irc_nas/vcp/18758/w_opencl_r
 进入hashcat的安装文件夹，并开始破解，带上--show时直接在尾部显示密码
 
 ```bat
-.\hashcat.exe -m 9400 .\hash  -a 3 --show
+.\hashcat.exe -m 9400 .\hash.txt  -a 3 --show
 ```
 
 Hash参数解析

@@ -1,8 +1,9 @@
 # CREATE
-## 创建用户
-create user 'test'@'localhost' identified by 'password’;
 
 ## 创建表
+
+默认当前时间戳
+DEFAULT CURRENT_TIMESTAMP
 
 ```sql
 CREATE TABLE IF NOT EXISTS `UserLogin`(
@@ -17,13 +18,12 @@ CREATE TABLE IF NOT EXISTS `UserLogin`(
    PRIMARY KEY ( `mail` )
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-默认当前时间戳
-DEFAULT CURRENT\_TIMESTAMP
+
 ```
 
 ```sql
 CREATE TABLE IF NOT EXISTS `carid`(
-`id` int(4) NOT NULL AUTO_INCREMENT,
+	`id` int(4) NOT NULL AUTO_INCREMENT,
   `carid` VARCHAR(7) NOT NULL,
   `name` VARCHAR(6),
   `telphone` char(11),

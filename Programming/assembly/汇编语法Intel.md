@@ -4,9 +4,11 @@
 
 ## 赋值方向
 
-复制方向从右到左
+赋值方向从右到左
 
-`ADD 目的操作数，源操作数`
+```
+ADD 目的操作数，源操作数
+```
 
 ## 操作数前缀
 
@@ -16,15 +18,23 @@
 
 远跳转JMP：段地址和段内偏移组成
 
-`JMP FAR SECTION:OFFSET`
+```
+JMP FAR SECTION:OFFSET
+```
 
 远调用CALL：段地址和段内偏移组成
 
-`CALL FAR SECTION:OFFSET`
+```
+CALL FAR SECTION:OFFSET
+```
 
 远返回RET：无操作数
 
-`RET`
+```
+RET
+```
+
+
 
 
 
@@ -40,8 +50,12 @@ section用于指定寄存器；scale默认为1，可取1、2、4、8
 
 ## 指令后缀
 
-使用内存操作数时应该借助**PTR**限定**操作数的位宽**
+使用内存操作数时应该借助**PTR**限定**操作数的位宽**，例如
 
-例如`MOV EAX,DWORD PTR [EBX]`
+```
+MOV EAX,DWORD PTR [EBX]
+```
+
+
 
 其中`DOWRD PTR`表示双字节；`BYTE PTR`表示一个字节；`WORD PTR`表示一个字

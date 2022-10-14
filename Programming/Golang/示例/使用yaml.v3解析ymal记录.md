@@ -1,4 +1,5 @@
-# 使用yaml.v3 解析ymal记录
+# 使用yaml.v3 解析yaml记录
+
 ## 准备环境
 ````
 go get gopkg.in/yaml.v3
