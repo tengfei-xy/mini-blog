@@ -3,7 +3,7 @@
 ```shell
 # http
 proxy=http://192.168.0.197:41091
-# httpsa
+# https
 proxy=https://192.168.0.197:41091
 ```
 

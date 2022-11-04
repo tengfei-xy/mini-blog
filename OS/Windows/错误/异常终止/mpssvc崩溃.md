@@ -10,10 +10,14 @@ HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\
 
 
 
-扩展；更具体的位置
+扩展：更具体的位置
 
 ```
 HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SharedAccess\Epoch
 HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SharedAccess\Epoch2
 ```
+
+
+
+
 

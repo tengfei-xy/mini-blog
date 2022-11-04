@@ -23,7 +23,8 @@ ListenAndServeTLS监听TCP网络地址srv。
 关闭或关闭后，返回的错误是ErrServerClosed。
 */
 func (srv *Server) ListenAndServeTLS(certFile, keyFile string) error {
-	if srv.shuttingDown() {
+	if srv.shuttingDow
+  n() {
 		return ErrServerClosed
 	}
 	addr := srv.Addr

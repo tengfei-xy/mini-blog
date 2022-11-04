@@ -2,18 +2,23 @@
 
 修改文件：/etc/apt/source.list
 
-### 20.04
+### 18.04（bionic）
 
-代号：focal
+```
+deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse
+```
+
+
+
+### 20.04（focal）
 
 ```bash
 deb http://mirrors.aliyun.com/ubuntu/ focal main restricted universe multiverse
 deb-src http://mirrors.aliyun.com/ubuntu/ focal main restricted universe multiverse
 ```
 
-### 21.04
-
-代号：hirsute
+### 21.04（hirsute）
 
 ```
 deb http://mirrors.aliyun.com/ubuntu/ hirsute main restricted

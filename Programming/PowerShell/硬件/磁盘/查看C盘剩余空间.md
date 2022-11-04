@@ -1,1 +1,6 @@
+查看C盘占用
+
+```
 (Get-Volume | Select-Object -Property DriveLetter,SizeRemaining | Where-Object {$_.DriveLetter -eq "C"}).SizeRemaining / 1GB
+```
+
