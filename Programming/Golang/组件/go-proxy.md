@@ -2,7 +2,6 @@
 
 ```
 set GOPROXY=https://mirrors.aliyun.com/goproxy/
-set GOPROXY=https://mirrors.aliyun.com/goproxy/
 ```
 
 使用socks5代理

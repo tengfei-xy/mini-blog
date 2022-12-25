@@ -1,0 +1,1 @@
+/Applications/Xcode.app/Contents/Applications/Instruments.app/Contents/MacOS/Instruments

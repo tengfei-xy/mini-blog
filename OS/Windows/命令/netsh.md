@@ -26,6 +26,12 @@ netsh interface ipv4 set address "以太网 2" static 192.168.1.98 255.255.255.0
 netsh i i sh a 7
 ```
 
+自动获取IP
+
+```
+netsh i i se ad 11 dh
+```
+
 
 
 ## DNS
@@ -41,6 +47,14 @@ netsh interface ip set dns "本地连接" static 172.16.41.130 primary
 ```
 netsh interface ip add dnsservers "本地连接" 8.8.8.8 index=2
 ```
+
+自动获取DNS
+
+```
+netsh i i se dn 11 dh
+```
+
+
 
 ## 网卡
 
