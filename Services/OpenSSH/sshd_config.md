@@ -6,7 +6,7 @@ PubkeyAuthentication yes ：允许公钥认证
 
 RSAAuthentication yes ：开启RSA认证
 
-DenyUsers oracle：禁止oracle用户登录（手动添加配置）
+DenyUsers oracle：禁止用户登录（手动添加配置）
 
 UsePAM yes：使用pam认证模块
 

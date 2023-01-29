@@ -24,5 +24,3 @@ sudo sysctl -p
 ```
 lsmod | grep bbr && sudo yum -y -q install wget
 ```
-
-w
