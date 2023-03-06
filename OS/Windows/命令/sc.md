@@ -106,3 +106,12 @@ sc ~<server>~ create \[service name] \[binPath= ] ~<option1>~ ~<option2>~...
  DisplayName= <显示名称>
  password= <密码>
  [官方说明]
+
+
+
+停止服务
+
+```
+sc stop eventlog
+```
+

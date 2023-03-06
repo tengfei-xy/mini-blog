@@ -7,6 +7,6 @@ location ~ \.php$ {
          fastcgi_split_path_info ^(.+\.php)(/.+)$;
          include fastcgi_params;
          fastcgi_index /usr/local/php/www/html/index.php;
-       }
+}
 ```
 
