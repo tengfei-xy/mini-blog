@@ -4,7 +4,7 @@
 REG QUERY KeyName \[/v \[ValueName] | /ve] \[/s]
       [/f Data [/k] [/d] [/c] [/e]] [/t Type] [/z] [/se Separator]
 
-  KeyName  \[\\Machine\]FullKey
+  KeyName  \[\\\Machine\\]FullKey
        Machine - 远程机器名称，省略当前机器的默认值。在远程机器上
                  只有 HKLM 和 HKU 可用。
        FullKey - 以 ROOTKEY\SubKey 名称形式

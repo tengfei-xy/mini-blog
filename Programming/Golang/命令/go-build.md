@@ -19,10 +19,10 @@ go build main.go
 
 -s -w -X main.KEYimg=${key} -H windowsgui
 
-| 选项 | 说明                            |
-| ---- | ------------------------------- |
-| -s   | disable symbol table            |
-| -w   | disable DWARF generation        |
-| -X   | 根据包名赋值变量                |
-| -H   | windows系统下使用gui，默认为cui |
+| 选项 | 说明                                 |
+| ---- | ------------------------------------ |
+| -s   | disable symbol table                 |
+| -w   | disable DWARF generation             |
+| -X   | 根据包名赋值变量，需要在go中声明变量 |
+| -H   | windows系统下使用gui，默认为cui      |
 

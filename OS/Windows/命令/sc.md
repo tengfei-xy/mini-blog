@@ -115,3 +115,28 @@ sc ~<server>~ create \[service name] \[binPath= ] ~<option1>~ ~<option2>~...
 sc stop eventlog
 ```
 
+## SC CNOFIG
+
+```
+C:\Users\Administrator>sc config /?
+描述:
+        在注册表和服务数据库中修改服务项。
+用法:
+        sc <server> config [service name] <option1> <option2>...
+
+选项:
+注意: 选项名称包括等号。
+      等号和值之间需要一个空格。
+ type= <own|share|interact|kernel|filesys|rec|adapt>
+ start= <boot|system|auto|demand|disabled|delayed-auto>
+ error= <normal|severe|critical|ignore>
+ binPath= <BinaryPathName>
+ group= <LoadOrderGroup>
+ tag= <yes|no>
+ depend= <依存关系(以 / (斜杠) 分隔)>
+ obj= <AccountName|ObjectName>
+ DisplayName= <显示名称>
+ password= <密码>
+
+```
+

@@ -134,7 +134,7 @@ upload_max_filesize
 date.timezone = Asia/Shanghai
 ```
 
-配置文件：/usr/local/services/php-7.4.13/etc/php-fpm.ini
+配置文件：/usr/local/services/php-7.4.13/etc/php-fpm.conf
 
 ```ini
 listen=127.0.0.1:9000
@@ -157,7 +157,7 @@ pm.max_spare_servers = 3
 启动命令参考
 
 ```
-ExecStart=/usr/local/services/php-7.4.13/sbin/php-fpm -y /usr/local/services/php-7.4.13/etc/php-fpm.d/www.conf -c /usr/local/services/php-7.4.13/etc/php.ini
+/usr/local/services/php-7.4.13/sbin/php-fpm -y /usr/local/services/php-7.4.13/etc/php-fpm.conf -c /usr/local/services/php-7.4.13/etc/php.ini
 ```
 
 
@@ -174,7 +174,7 @@ Description=php daemon
 Type=forking
 User=root
 Group=root
-ExecStart=/usr/local/services/php-7.4.13/sbin/php-fpm -y /usr/local/services/php-7.4.13/etc/php-fpm.d/www.conf -c /usr/local/services/php-7.4.13/etc/php.ini
+ExecStart=/usr/local/services/php-7.4.13/sbin/php-fpm -y /usr/local/services/php-7.4.13/etc/php-fpm.ini -c /usr/local/services/php-7.4.13/etc/php.ini
 KillMode=process
 KillSignal=SIGQUIT
 Restart=on-failure

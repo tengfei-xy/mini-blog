@@ -23,7 +23,7 @@
 远程复制
 
 ```bash
- -m copy -a "remote_src=true src=/root/1 dest=/usr/local/ owner=nbzhiwei group=nbzhiwei mode=440"
+ -m copy -a "remote_src=true src=/root/1 dest=/usr/local/ owner=username group=username mode=440"
 ```
 
 
