@@ -1,0 +1,1 @@
+https://tooltt.com/json2go/
