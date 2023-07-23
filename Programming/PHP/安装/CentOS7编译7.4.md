@@ -9,7 +9,7 @@ wget https://www.php.net/distributions/php-7.4.13.tar.gz
 Yum
 
 ```shell
-yum -y install wget vim pcre pcre-devel openssl openssl-devel libicu-devel gcc gcc-c++ autoconf libjpeg libjpeg-devel libpng libpng-devel freetype freetype-devel libxml2 libxml2-devel zlib zlib-devel glibc glibc-devel glib2 glib2-devel ncurses ncurses-devel curl curl-devel krb5-devel libidn libidn-devel openldap openldap-devel nss_ldap jemalloc-devel cmake boost-devel bison automake libevent libevent-devel gd gd-devel libtool* libmcrypt libmcrypt-devel mcrypt mhash libxslt libxslt-devel readline readline-devel gmp gmp-devel libcurl libcurl-devel openjpeg-devel sqlite-devel oniguruma-devel epel-release  libsqlite3x-devel  libsqlite-devlel php-ldap*
+sudo yum -y install wget vim pcre pcre-devel openssl openssl-devel libicu-devel gcc gcc-c++ autoconf libjpeg libjpeg-devel libpng libpng-devel freetype freetype-devel libxml2 libxml2-devel zlib zlib-devel glibc glibc-devel glib2 glib2-devel ncurses ncurses-devel curl curl-devel krb5-devel libidn libidn-devel openldap openldap-devel nss_ldap jemalloc-devel cmake boost-devel bison automake libevent libevent-devel gd gd-devel libtool* libmcrypt libmcrypt-devel mcrypt mhash libxslt libxslt-devel readline readline-devel gmp gmp-devel libcurl libcurl-devel openjpeg-devel sqlite-devel oniguruma-devel epel-release  libsqlite3x-devel  libsqlite-devlel php-ldap* bzip2
 ```
 
 rpm包
@@ -46,35 +46,35 @@ wget -nc $line;done
 
   ```
   tar zxf libmcrypt-2.5.8.tar.gz && cd libmcrypt-2.5.8
-  ./configure && make -j4 && make install && cd ..
+  ./configure && make -j4 && sudo make install && cd ..
   ```
 
 - yasm
 
   ```
   tar zxf yasm-1.2.0.tar.gz && cd yasm-1.2.0
-  ./configure && make -j4 && make install && cd ..
+  ./configure && make -j4 && sudo make install && cd ..
   ```
 
 - libvpx
 
   ```
   tar xf libvpx-v1.3.0.tar.bz2 && cd libvpx-v1.3.0
-  ./configure --prefix=/usr/local/libvpx --enable-shared --enable-vp9 && make -j4 && make install && cd ..
+  ./configure --prefix=/usr/local/libvpx --enable-shared --enable-vp9 && make -j && sudo make install && cd ..
   ```
 
 - tiff
 
   ```
   tar zxf tiff-4.0.3.tar.gz && cd tiff-4.0.3
-  ./configure --prefix=/usr/local/tiff --enable-shared && make -j4 && make install && cd ..
+  ./configure --prefix=/usr/local/tiff --enable-shared && make -j4 && sudo make install && cd ..
   ```
 
 - libpng
 
   ```
   tar xf  libpng-1.6.12.tar.gz && cd libpng-1.6.12
-  ./configure --prefix=/usr/local/libpng --enable-shared && make -j4 && make install && cd ..
+  ./configure --prefix=/usr/local/libpng --enable-shared && make -j4 && sudo make install && cd ..
   ```
 
 - freetype
@@ -88,7 +88,7 @@ wget -nc $line;done
 
   ```
   tar xf jpegsrc.v9a.tar.gz && cd jpeg-9a
-  ./configure --prefix=/usr/local/jpeg --enable-shared && make -j4 && make install && cd ..
+  ./configure --prefix=/usr/local/jpeg --enable-shared && make -j4 && sudo make install && cd ..
   ```
 
 - libgd
@@ -96,7 +96,7 @@ wget -nc $line;done
   ```
   tar xf libgd-2.1.0.tar.gz  && cd libgd-2.1.0
   ./configure --prefix=/usr/local/libgd --enable-shared --with-jpeg=/usr/local/jpeg --with-png=/usr/local/libpng --with-freetype=/usr/local/freetype --with-fontconfig=/usr/local/freetype --with-xpm=/usr/ --with-tiff=/usr/local/tiff --with-vpx=/usr/local/libvpx
-  make -j4 && make install && cd ..
+  make -j4 && sudo make install && cd ..
   ```
 
   

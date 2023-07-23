@@ -19,12 +19,12 @@ stopasgroup=true
 killasgroup=true
 user=monster
 redirect_stderr=true
-stdout_logfile=/usr/local/logs/proxy/proxy-info.log
+stdout_logfile=/usr/local/services/logs/proxy/proxy-info.log
 stdout_logfile_maxbytes=50MB
 stdout_logfile_backups=10
 stdout_capture_maxbytes=1MB
 stdout_events_enabled=false
-stderr_logfile=/usr/local/logs/proxy/proxy-error.log
+stderr_logfile=/usr/local/services/logs/proxy/proxy-error.log
 stderr_logfile_maxbytes=10MB
 stderr_logfile_backups=10
 stderr_capture_maxbytes=1MB
@@ -33,7 +33,7 @@ stderr_events_enabled=false
 
 
 
-详细配置
+配置说明
 
 ```ini
 [program: proxy]
@@ -54,12 +54,12 @@ stopasgroup=true                ; send stop signal to the UNIX process group (de
 killasgroup=true                ; SIGKILL the UNIX process group (def false)
 user=monster                   ; setuid to this UNIX account to run the program
 redirect_stderr=true            ; redirect proc stderr to stdout (default false)
-stdout_logfile=/usr/local/logs/proxy/proxy-info.log ; stdout log path, NONE for none; default AUTO
+stdout_logfile=/usr/local/services/logs/proxy/proxy-info.log ; stdout log path, NONE for none; default AUTO
 stdout_logfile_maxbytes=50MB    ; max # logfile bytes b4 rotation (default 50MB)
 stdout_logfile_backups=10       ; # of stdout logfile backups (0 means none, default 10)
 stdout_capture_maxbytes=1MB     ; number of bytes in 'capturemode' (default 0)
 stdout_events_enabled=false     ; emit events on stdout writes (default false)
-stderr_logfile=/usr/local/logs/proxy/proxy-error.log ; stderr log path, NONE for none; default AUTO
+stderr_logfile=/usr/local/services/logs/proxy/proxy-error.log ; stderr log path, NONE for none; default AUTO
 stderr_logfile_maxbytes=10MB    ; max # logfile bytes b4 rotation (default 50MB)
 stderr_logfile_backups=10       ; # of stderr logfile backups (0 means none, default 10)
 stderr_capture_maxbytes=1MB     ; number of bytes in 'capturemode' (default 0)

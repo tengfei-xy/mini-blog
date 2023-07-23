@@ -28,7 +28,7 @@ supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface
 serverurl=unix:///tmp/supervisor.sock ; use a unix:// URL  for a unix socket
 
 [include]
-files = /usr/local/supervisord/files/*.ini
+files = /usr/local/services/supervisord/files/*.ini
 ```
 
 # 实用配置（monster）
@@ -65,7 +65,7 @@ supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface
 serverurl=unix:///tmp/supervisor.sock ; use a unix:// URL  for a unix socket
 
 [include]
-files = /usr/local/supervisord/files/*.ini
+files = /usr/local/services/supervisord/files/*.ini
 ```
 
 
@@ -220,6 +220,6 @@ serverurl=unix:///tmp/supervisor.sock ; use a unix:// URL  for a unix socket
 ; include files themselves.
 
 [include]
-files = /usr/local/supervisord/files/*.ini
+files = /usr/local/services/supervisord/files/*.ini
 ```
 
