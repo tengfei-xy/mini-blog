@@ -1,0 +1,3 @@
+# dcdiag
+
+dcdiag /test:dns

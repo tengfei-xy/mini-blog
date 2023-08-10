@@ -1,0 +1,71 @@
+# PARTITION
+
+## 目录
+
+-   [RANGE](#RANGE)
+    -   [PARTITION RANGE SINGLE](#PARTITION-RANGE-SINGLE)
+    -   [PARTITI3ON RANGE ITERATOR](#PARTITI3ON-RANGE-ITERATOR)
+    -   [PARTITION RANGE INLIST](#PARTITION-RANGE-INLIST)
+    -   [PARTITION RANGE ALL](#PARTITION-RANGE-ALL)
+    -   [PARTITION RANGE EMPTY](#PARTITION-RANGE-EMPTY)
+    -   [PARTITION RANGE OR](#PARTITION-RANGE-OR)
+    -   [PARTITION RANGE SUBQUERY](#PARTITION-RANGE-SUBQUERY)
+    -   [PARTITION RANGE JOIN-FILTER](#PARTITION-RANGE-JOIN-FILTER)
+    -   [PARTITION RANGE MULTI-COLUMN](#PARTITION-RANGE-MULTI-COLUMN)
+    -   [PARTITION RANGE AND](#PARTITION-RANGE-AND)
+-   [LIST](#LIST)
+-   [HASH](#HASH)
+
+## RANGE
+
+Iran且连续的值，例如时间戳和序列生成的数字
+
+### PARTITION RANGE SINGLE
+
+只访问了一个分区
+
+### PARTITI3ON RANGE ITERATOR
+
+访问多个分区
+
+### PARTITION RANGE INLIST
+
+基于一个或多个元素组成的IN 条件
+
+### PARTITION RANGE ALL
+
+没有限制，所有分区都必须被访问
+
+### PARTITION RANGE EMPTY
+
+查找的数据没有分区保存
+
+### PARTITION RANGE OR
+
+分隔谓词在WHERE子句使用了or条件组合的谓词
+
+### PARTITION RANGE SUBQUERY
+
+子查询裁剪，通过递归查找出第二个自操作应该访问哪个分区。
+
+SQL引擎执行递归查询通过第一个自操作访问表来取回连接条件与第二个子操作分区键的列，，，后面还有不记录了，太虚了
+
+### PARTITION RANGE JOIN-FILTER
+
+11.1开始提供了“联接过滤裁剪”
+
+### PARTITION RANGE MULTI-COLUMN
+
+分区键有多个列组合而成
+
+### PARTITION RANGE AND
+
+AND裁剪，为连接条件创建的布隆过滤器
+
+## LIST
+
+常见且不连续的值，例如enabled、disabled，年龄，性别
+
+## HASH
+
+适合不同的值超出分区数很多的所有数据类型

@@ -1,1 +1,0 @@
-dbaccess database *.sql
