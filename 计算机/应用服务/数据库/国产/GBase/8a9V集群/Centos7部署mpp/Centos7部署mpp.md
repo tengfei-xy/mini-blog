@@ -8,8 +8,6 @@
 -   [安装集群](#安装集群)
     -   [初始化](#初始化)
 
-文档作者微信：SXL--LP（可联系获取安装包资源）
-
 # GBASE 8a MPP Cluster集群部署
 
 部署参考文档：[https://juejin.cn/post/7014696094894391327](https://juejin.cn/post/7014696094894391327 "https://juejin.cn/post/7014696094894391327")
@@ -256,7 +254,7 @@ gcinstall/gcinstall.py --silent=demo.options
 安装部分日志
 
 ```纯文本
-192.168.3.72         	install gcware and cluster on host 192.168.3.72 successfully.
+192.168.3.72           install gcware and cluster on host 192.168.3.72 successfully.
 Starting all gcluster nodes ...
  start cluster service failed on host 192.168.3.72.
 adding new datanodes to gcware ...
@@ -332,7 +330,7 @@ CLUSTER STATE:         ACTIVE
 ```纯文本
 [gbase@gbase gcinstall]$ ./License -n 192.168.3.72 -u gbase -p gbase -f  ~/mpp.lic
 =============================================================
-Successful node nums:	1
+Successful node nums:  1
 ==============================================================
 ```
 

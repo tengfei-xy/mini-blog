@@ -13,8 +13,6 @@
 
 注：如果你没有成功手动部署过rac，请出门左转
 
-注：资源获取可联系微信：SXL--LP
-
 ## 参考文档
 
 本文使用的OracleShellInstall.sh的md5为
@@ -53,11 +51,11 @@ i=172.16.83.2     # node1 Public ip(本机执行脚本的IP)
 n=ora               # rac hostname prefix
 c=true              # 判断是否为CDB模式
 pb=rac              # 创建PDB的名称
-o=rac 	            # oraclesid
+o=rac               # oraclesid
 rs=bb123456          # root password
 op=oracle           # oracle password
 gp=grid             # grid password
-b=/u01/app			    # install basedir
+b=/u01/app          # install basedir
 s=AL32UTF8          # characterset
 ns=UTF8             # national characterset
 pb1=$i              # node1 public ip

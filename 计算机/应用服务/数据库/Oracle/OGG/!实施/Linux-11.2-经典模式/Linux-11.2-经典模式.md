@@ -14,8 +14,6 @@
     -   [2、PUMP传输进程](#2PUMP传输进程)
 -   [七、目标端：配置Replicat进程](#七目标端配置Replicat进程)
 
-文档作者微信：SXL--LP（可联系获取安装包资源）
-
 文档更新时间：2021年11月3日
 
 # 一、补充：目标库DDL
@@ -117,9 +115,9 @@ set pagesize 1000
     启动到mount模式
     ```bash
     SQL> select open_mode,force_logging from v$database;
-    OPEN_MODE	           FOR
+    OPEN_MODE             FOR
     -------------------- ---
-    READ WRITE	         NO
+    READ WRITE           NO
 
 
     SQL> shutdown immediate; 
@@ -313,27 +311,27 @@ set pagesize 1000
     SQL> conn ogg/ogg
     SQL> select * from tab;
 
-    TNAME			                     TABTYPE	CLUSTERID
+    TNAME                           TABTYPE  CLUSTERID
     ------------------------------ ------- ----------
-    GGSCHKPT		                   TABLE
-    GGSCHKPT_LOX		               TABLE
-    GGS_DDL_COLUMNS 	             TABLE
-    GGS_DDL_HIST		               TABLE
-    GGS_DDL_HIST_ALT	             TABLE
-    GGS_DDL_LOG_GROUPS	           TABLE
-    GGS_DDL_OBJECTS 	             TABLE
-    GGS_DDL_PARTITIONS	           TABLE
-    GGS_DDL_PRIMARY_KEYS	         TABLE
-    GGS_DDL_RULES		               TABLE
-    GGS_DDL_RULES_LOG	             TABLE
+    GGSCHKPT                       TABLE
+    GGSCHKPT_LOX                   TABLE
+    GGS_DDL_COLUMNS                TABLE
+    GGS_DDL_HIST                   TABLE
+    GGS_DDL_HIST_ALT               TABLE
+    GGS_DDL_LOG_GROUPS             TABLE
+    GGS_DDL_OBJECTS                TABLE
+    GGS_DDL_PARTITIONS             TABLE
+    GGS_DDL_PRIMARY_KEYS           TABLE
+    GGS_DDL_RULES                   TABLE
+    GGS_DDL_RULES_LOG               TABLE
 
-    TNAME			                     TABTYPE	CLUSTERID
+    TNAME                           TABTYPE  CLUSTERID
     ------------------------------ ------- ----------
-    GGS_MARKER		                 TABLE
-    GGS_SETUP		                   TABLE
-    GGS_STICK		                   TABLE
-    GGS_TEMP_COLS		               TABLE
-    GGS_TEMP_UK		                 TABLE
+    GGS_MARKER                     TABLE
+    GGS_SETUP                       TABLE
+    GGS_STICK                       TABLE
+    GGS_TEMP_COLS                   TABLE
+    GGS_TEMP_UK                     TABLE
 
     16 rows selected.
     ```

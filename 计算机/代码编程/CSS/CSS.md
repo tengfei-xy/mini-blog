@@ -6,4 +6,4 @@
 
 [结构框架](结构框架/结构框架.md "结构框架")
 
-[less和sess](less和sess/less和sess.md "less和sess")
+[less和sass](less和sass/less和sass.md "less和sass")
