@@ -2,21 +2,18 @@
 
 ## 目录
 
--   [使用yaml.v3 解析yaml记录](#使用yamlv3-解析yaml记录)
-    -   [准备环境](#准备环境)
-    -   [config.yaml](#configyaml)
-    -   [yaml struct](#yaml-struct)
-    -   [代码解析](#代码解析)
+-   [准备环境](#准备环境)
+-   [config.yaml](#configyaml)
+-   [yaml struct](#yaml-struct)
+-   [代码解析](#代码解析)
 
-# 使用yaml.v3 解析yaml记录
-
-## 准备环境
+# 准备环境
 
 ```纯文本
 go get gopkg.in/yaml.v3
 ```
 
-## config.yaml
+# config.yaml
 
 ```yaml
 basic:
@@ -38,7 +35,9 @@ inst:
   method: "Get"
 ```
 
-## yaml struct
+# yaml struct
+
+> 📌结构体需要大写
 
 ```纯文本
 type info struct{
@@ -64,10 +63,10 @@ type Section struct{
 }
 ```
 
-## 代码解析
+# 代码解析
 
 ```bash
-yamlFile, err := ioutil.ReadFile(*conf)
+yamlFile, err := os.ReadFile(filename)
 if err != nil {
   return fmt.Errorf("yamlFile.Get err   #%v " ,err)
 }

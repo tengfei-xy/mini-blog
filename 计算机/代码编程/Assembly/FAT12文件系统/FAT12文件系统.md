@@ -17,7 +17,7 @@
 
 # 文件结构分配图
 
-![](image/image_JhC99Tum1s.png)
+![](image/image_pH5Y1pzYjd.png)
 
 # 扇区
 

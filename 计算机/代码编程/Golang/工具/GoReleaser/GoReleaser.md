@@ -14,13 +14,17 @@
         git push origin v0.1.0
 
         ```
-    4.  创建发布
+    4.  不正式发release包，执行下流程，看看有没有一些执行错误&#x20;
+        ```bash
+        goreleaser release --snapshot --clean
+        ```
+    5.  创建发布
         ```bash
         goreleaser release
         ```
 -   测试
 
-    1.不发布release，生成测试二进制文件
+    本地发布包测试 &#x20;
     ```bash
-    goreleaser build --snapshot --clean
+    goreleaser build --single-target
     ```
