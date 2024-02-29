@@ -1,7 +1,7 @@
 # mini-blog
 
 是个人的知识体系。
-
+注：本文档不再更新于github，之后以[wolai文档](https://www.wolai.com/tengfei-xy/acLQ73ZSwSvmYoXV8B64uz)的持续更新
 
 
 **说明：**
